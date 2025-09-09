@@ -181,8 +181,8 @@
     transform: scale(1);
 }
 .demo-highlight {
-  outline: 3px solid var(--accent);
-  box-shadow: 0 0 25px rgba(96, 165, 250, 0.7);
+  outline: 3px solid var(--brand);
+  box-shadow: 0 0 22px var(--ring);
   border-radius: .5rem;
   position: relative;
   z-index: 9999;
@@ -269,6 +269,202 @@ body.high-contrast .warntext { color: var(--warn); }
 
 
 </style>
+
+<script>
+// Apply saved theme pre-paint to avoid flashes
+(function(){
+  try{
+    var th = (function(){var t=localStorage.getItem('vp_theme'); if(t===''){localStorage.setItem('vp_theme','dark'); t='dark';} return t || 'dark';})();
+    document.documentElement.setAttribute('data-theme', th);
+  }catch(e){}
+})();
+</script>
+
+
+<style id="vp-themes">
+
+/* Background & card polish */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Table/rows subtle */
+
+
+
+
+/* Demo tour highlight uses theme --ring variable */
+
+/* Ensure label chips are readable */
+
+
+html[data-theme="light-warm"]{
+  --ring: rgba(180,119,0,.45);
+  --bg:#f7f5ef;
+  --panel:#ffffff;
+  --muted:#f1ede4;
+  --text:#1a1d1f;
+  --sub:#5a646e;
+  --brand:#16a34a;
+  --accent:#2563eb;
+  --warn:#b45309;
+  --danger:#b91c1c;
+  --ok:#166534;
+  --chip:#f5efe6;
+  --border:#e2dbc9;
+}
+/* Component overrides for Warm Light to ensure readability */
+html[data-theme="light-warm"] body{ background:var(--bg); color:var(--text); }
+html[data-theme="light-warm"] .sidebar{ background:linear-gradient(180deg,#ffffff,#faf6ef); }
+html[data-theme="light-warm"] .btn{ 
+  background:linear-gradient(180deg,#ffffff,#f6f1e6); 
+  color:var(--text);
+  border-color:#d7ccb4;
+}
+html[data-theme="light-warm"] .btn-primary{ background:linear-gradient(180deg,#eef2ff,#e6ecff); border-color:#c9d2f6; color:#0f172a; }
+html[data-theme="light-warm"] .btn-brand{ background:linear-gradient(180deg,#daf8e8,#c8f1dc); border-color:#9cd8be; color:#052914; }
+html[data-theme="light-warm"] .btn-warn{ background:#fff4e0; border-color:#e6caa0; color:#7a4b00; }
+html[data-theme="light-warm"] .btn-danger{ background:#ffe8e8; border-color:#f1b3b3; color:#7a0a12; }
+html[data-theme="light-warm"] .input, 
+html[data-theme="light-warm"] select, 
+html[data-theme="light-warm"] textarea{
+  background:#ffffff;
+  color:#1a1d1f;
+  border-color:#d7ccb4;
+}
+html[data-theme="light-warm"] .accordion-item{ background:#fff; }
+html[data-theme="light-warm"] .accordion-head{ background:#faf6ef; }
+html[data-theme="light-warm"] .tag{ background:#faf6ef; color:#475569; border-color:#e2dbc9; }
+html[data-theme="light-warm"] .tag.ok{ color:#065f46; background:#e9fdf5; border-color:#b7e4d3; }
+html[data-theme="light-warm"] .tag.warn{ color:#92400e; background:#fff7ed; border-color:#f5d3a2; }
+html[data-theme="light-warm"] .tag.block{ color:#7f1d1d; background:#fef2f2; border-color:#f3b4b4; }
+
+
+</style>
+
+
+<style id="vp-theme-fixes">
+/* Tour / spotlight highlight: force themed glow */
+.demo-highlight,
+.tour-highlight,
+[data-tour-highlight],
+.shepherd-enabled,
+.introjs-helperLayer,
+#demo-tour-highlight {
+  outline: 3px solid var(--brand) !important;
+  box-shadow: 0 0 22px var(--ring) !important;
+  border-radius: .5rem !important;
+}
+
+/* Warm Light: improve pill/chip/badge readability */
+html[data-theme="light-warm"] .chip,
+html[data-theme="light-warm"] .pill,
+html[data-theme="light-warm"] .tag,
+html[data-theme="light-warm"] .label,
+html[data-theme="light-warm"] .status-pill{
+  background:#ffffff !important;
+  color:#1f2937 !important;
+  border-color:#e2dbc9 !important;
+}
+
+/* Warm Light input focus */
+html[data-theme="light-warm"] .input:focus,
+html[data-theme="light-warm"] select:focus,
+html[data-theme="light-warm"] textarea:focus{
+  outline:2px solid var(--brand) !important;
+  box-shadow:0 0 0 3px rgba(22,163,74,.18) !important;
+}
+</style>
+
+
+
+
+<style>
+html[data-theme="light-warm"] select,
+html[data-theme="light-warm"] .input,
+html[data-theme="light-warm"] textarea{
+  background:#ffffff !important;
+  color:#1a1d1f !important;
+  border-color:#d7ccb4 !important;
+}
+</style>
+
+<style id="vp-overlay-theme">
+html[data-theme="light-warm"] #demo-tour-overlay { background: rgba(0,0,0,.35) !important; }
+html[data-theme="light"] #demo-tour-overlay { background: rgba(0,0,0,.35) !important; }
+</style>
+
+<style id="vp-warmlight-cardfix">
+/* Warm Light cards and modal content */
+html[data-theme="light-warm"] .card{ 
+  background:#ffffff; 
+  color:#1a1d1f; 
+  border-color:#e2dbc9; 
+  box-shadow: 0 8px 24px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.6);
+}
+html[data-theme="light-warm"] .modal-card{ background:#ffffff; color:#1a1d1f; border-color:#e2dbc9; }
+html[data-theme="light-warm"] .label, 
+html[data-theme="light-warm"] .section-title{ color:#0f172a; }
+</style>
+
+
+<script id="vp-force-login">
+// Force-start on the login page: ignore any saved session
+try { localStorage.removeItem('session'); } catch(e){}
+</script>
+
+
+<style id="vp-tour-overlay-tune">
+/* Make background content more visible during tour */
+#demo-tour-overlay{
+  background: rgba(0,0,0,.25) !important;        /* was ~.6 in original; .25 is much lighter */
+  backdrop-filter: blur(1px) saturate(.95);       /* subtle blur to keep focus on the tour step */
+}
+/* Slightly lighter still for warm/light themes */
+html[data-theme="light-warm"] #demo-tour-overlay,
+html[data-theme="light"] #demo-tour-overlay{
+  background: rgba(0,0,0,.18) !important;
+  backdrop-filter: blur(.5px) saturate(.98);
+}
+/* Keep the highlight ring visible on any background */
+.demo-highlight,
+.tour-highlight,
+[data-tour-highlight],
+.shepherd-enabled,
+.introjs-helperLayer,
+#demo-tour-highlight {
+  outline: 3px solid var(--brand) !important;
+  box-shadow: 0 0 22px var(--ring) !important;
+  border-radius: .5rem !important;
+}
+</style>
+
+
+<script id="vp-safe-helpers">
+(function(){
+  window.qs = function(sel, root){ try { return (root||document).querySelector(sel); } catch(e){ return null; } };
+  window.qsa = function(sel, root){ try { return (root||document).querySelectorAll(sel); } catch(e){ return []; } };
+  window.safeElementOperation = function(selector, operation){
+    try{
+      const el = typeof selector==='string' ? qs(selector) : selector;
+      if (el) { operation(el); }
+      else { console.warn('Element not found:', selector); }
+    }catch(err){ console.error('safeElementOperation error:', err); }
+  };
+})();
+</script>
+
 </head>
 <body>
 <div id="app"></div>
@@ -589,8 +785,13 @@ augmentDemoV2();
               <input id="loginPwd" class="input" type="password" placeholder="Enter: 123" />
               <div class="row">
                 <button id="loginBtn" class="btn btn-brand">Sign in</button>
-                <button id="seedReset" class="btn">Reset demo data</button>
-              </div>
+                <button id="seedReset" class="btn">Reset Data</button>
+              
+  <select id="themeSelect" class="input" style="min-width:160px" title="Theme">
+    <option value="dark">Dark</option>
+    <option value="light-warm">Warm Light</option>
+  </select>
+</div>
               <button id="startTourBtn" class="btn btn-primary" style="width:100%; margin-top: 1rem;">Start Demo Tour</button>
             </div>
           </div>
@@ -601,7 +802,7 @@ augmentDemoV2();
               <li><b>Take the Tour:</b> Click "Start Demo Tour" for a guided walkthrough of the main workflow.</li>
               <li><b>Explore Roles:</b> Log in as a 'Procurement Manager', 'Logistics Manager', or 'Sys Admin' to see different permissions and views.</li>
               <li><b>Navigate:</b> Use the sidebar tabs (Dashboard, POs, Documents, Wallet) to explore features.</li>
-              <li><b>Start Over:</b> Click "Reset demo data" at any time to return to the original state.</li>
+              <li><b>Start Over:</b> Click "Reset Data" at any time to return to the original state.</li>
             </ul>
           </div>
         </div>
@@ -647,7 +848,7 @@ augmentDemoV2();
       user.lastLogin = now();
       saveSession();
       save(); 
-      renderApp();
+      try{ renderLogin(); }catch(e){}
     });
     $('#seedReset').addEventListener('click', ()=>{
       localStorage.removeItem('vp'); 
@@ -672,9 +873,17 @@ augmentDemoV2();
   }
 
   function saveSession(){ localStorage.setItem('vp_session', JSON.stringify(session)); }
-  function loadSession(){ try{ const s=JSON.parse(localStorage.getItem('vp_session')); if(s&&s.companyId&&s.role&&s.userId){session=s;} }catch(e){} }
-
-  
+  function loadSession(opts={}){ 
+  try{ 
+    const raw = localStorage.getItem('vp_session') || localStorage.getItem('session');
+    const s = raw ? JSON.parse(raw) : { companyId: null, role: null, userId: null };
+    if (opts.forceLogin === true) return {}; 
+    return s; 
+  }catch(e){ 
+    console.error('Session load error:', e);
+    return { companyId: null, role: null, userId: null }; 
+  } 
+}
   const MAX_FILE_SIZE = 5 * 1024 * 1024;
   let isProcessing = false;
 
@@ -1439,7 +1648,7 @@ augmentDemoV2();
     modal.classList.remove('hidden');
     modal.innerHTML = `
       <div class="card" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45);z-index:999">
-        <div class="card" style="max-width:860px;width:95%;max-height:88vh;overflow:auto;background:#0d1217">
+        <div class="card" style="max-width:860px;width:95%;max-height:88vh;overflow:auto;background:var(--panel);color:var(--text);border:1px solid var(--border)">
           <div class="row-between">
             <div class="section-title">Send New PO</div>
             <button id="xModal" class="btn">Close</button>
@@ -1815,7 +2024,7 @@ augmentDemoV2();
     const adminLevelOptions = ['None', 'Limited', 'Standard', 'Super'].map(lvl => `<option value="${lvl}" ${user?.adminLevel === lvl ? 'selected':''}>${lvl}</option>`).join('');
     modal.innerHTML = `
       <div class="card" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45);z-index:999;">
-        <div class="card" style="width:500px;background:#0d1217">
+        <div class="card" style="width:500px;background:var(--panel);color:var(--text);border:1px solid var(--border)">
           <div class="row-between">
             <div class="section-title">${isEditing ? 'Edit User' : 'Add New User'}</div>
             <button id="xModal" class="btn">×</button>
@@ -2083,7 +2292,7 @@ augmentDemoV2();
     const categoryOptions = categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
     modal.innerHTML = `
       <div class="card" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45);z-index:999">
-        <div class="card" style="width:600px;background:#0d1217">
+        <div class="card" style="width:600px;background:var(--panel);color:var(--text);border:1px solid var(--border)">
           <div class="row-between">
             <div class="section-title">Upload Company Document</div>
             <button id="xModal" class="btn">×</button>
@@ -2203,7 +2412,7 @@ augmentDemoV2();
     
     modal.innerHTML = `
       <div class="card" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45);z-index:999">
-        <div class="card" style="width:500px;background:#0d1217">
+        <div class="card" style="width:500px;background:var(--panel);color:var(--text);border:1px solid var(--border)">
           <div class="row-between">
             <div class="section-title">Attach Document to PO</div>
             <button id="xModal" class="btn">×</button>
@@ -2983,5 +3192,67 @@ augmentDemoV2();
 
 })();
 </script>
+
+
+<script>
+(function(){
+  function applyThemeInstant(th){
+    try{
+      if(th===''){th='dark';}
+      document.documentElement.setAttribute('data-theme', th);
+      document.body && document.body.setAttribute('data-theme', th);
+      localStorage.setItem('vp_theme', th);
+    }catch(e){}
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    var sel = document.getElementById('themeSelect');
+    if(sel){
+      var current = (function(){var t=localStorage.getItem('vp_theme'); if(t===''){localStorage.setItem('vp_theme','dark'); t='dark';} return t || 'dark';})();
+      sel.value = current;
+      applyThemeInstant(current); // ensure applied immediately
+      sel.addEventListener('change', function(){ applyThemeInstant(this.value); });
+    }
+  });
+})();
+</script>
+
+
+
+<script id="vp-ensure-login">
+document.addEventListener('DOMContentLoaded', function(){
+  try{
+    if (typeof renderLogin === 'function') renderLogin();
+  }catch(e){}
+});
+</script>
+
+
+<script id="vp-tour-hardening">
+(function(){
+  function guard(fnName){
+    var fn = window[fnName];
+    if (typeof fn !== 'function') return;
+    window[fnName] = function(){
+      try { return fn.apply(this, arguments); }
+      catch(e){ console.error(fnName+' error:', e); }
+    };
+  }
+  guard('startDemoTour');
+  guard('nextTourStep');
+  guard('prevTourStep');
+  document.addEventListener('DOMContentLoaded', function(){
+    setTimeout(function(){
+      var overlay = document.getElementById('demo-tour-overlay');
+      if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'demo-tour-overlay';
+        overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.25);pointer-events:none;z-index:1000';
+        document.body.appendChild(overlay);
+      }
+    }, 50);
+  });
+})();
+</script>
+
 </body>
 </html>
