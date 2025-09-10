@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf--8">
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VeriPura Demo — Single File Build</title>
@@ -125,583 +124,1054 @@
     .admin-content{display:none;}
     .admin-content.active{display:block;}
 
-.btn-ok {
-    background:linear-gradient(180deg,#15a37a,#108e68);
-    border-color:#157a40;
-    color: white;
-}
-.btn-ok:hover {
-  filter: brightness(0.95);
-}
+    .btn-ok {
+      background:linear-gradient(180deg,#15a37a,#108e68);
+      border-color:#157a40;
+      color: white;
+    }
+    .btn-ok:hover {
+      filter: brightness(0.95);
+    }
+  </style>
 
-/* Demo Tour & Control Panel Styles */
-#demo-control-panel {
-  position: fixed;
-  bottom: 10px;
-  left: 10px;
-  z-index: 10000;
-  background: var(--panel);
-  border: 1px solid var(--brand);
-  border-radius: .8rem;
-  padding: .75rem;
-  box-shadow: 0 10px 25px rgba(0,0,0,.4);
-  width: 320px;
-  transform: translateY(120%);
-  transition: transform .3s ease-in-out;
-}
-#demo-control-panel.visible {
-  transform: translateY(0);
-}
-#demo-tour-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 9998;
-  opacity: 0;
-  transition: opacity .3s ease;
-}
-#demo-tour-overlay.visible {
-  opacity: 1;
-}
-#demo-tour-callout {
-  position: absolute;
-  z-index: 9999;
-  background: var(--panel);
-  border: 2px solid var(--accent);
-  padding: 1rem;
-  border-radius: .8rem;
-  box-shadow: 0 10px 25px rgba(0,0,0,.4);
-  max-width: 350px;
-  opacity: 0;
-  transform: scale(0.95);
-  transition: top .3s ease, left .3s ease, opacity .3s ease, transform .3s ease;
-}
-#demo-tour-callout.visible {
-    opacity: 1;
-    transform: scale(1);
-}
-.demo-highlight {
-  outline: 3px solid var(--brand);
-  box-shadow: 0 0 22px var(--ring);
-  border-radius: .5rem;
-  position: relative;
-  z-index: 9999;
-  transition: all .3s ease;
-}
-#loading-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(11, 13, 16, 0.8);
-    z-index: 10001;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--brand);
-    font-size: 1.2rem;
-    font-weight: 600;
-}
-.finish-card {
-  max-width: 650px;
-  width: 90%;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: .9rem;
-  padding: 2rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  align-items: center;
-}
-.finish-card h1 {
-  font-size: 2rem;
-  margin: 0;
-  color: var(--text);
-}
-.finish-card p {
-  font-size: 1.1rem;
-  color: var(--sub);
-  max-width: 80%;
-  margin: 0;
-}
-.finish-card .finish-brand {
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-}
-.finish-card a {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--accent);
-    text-decoration: underline;
-}
-.finish-card .tagline {
-    color: var(--accent);
-    font-weight: 700;
-    letter-spacing: 1px;
-    font-size: 0.8rem;
-}
-
-/* Accessibility Modes */
-body.large-text {
-  font-size: 115%;
-}
-body.high-contrast {
-  --bg: #000000;
-  --panel: #111111;
-  --muted: #222222;
-  --text: #ffffff;
-  --sub: #cccccc;
-  --brand: #ffff00;
-  --accent: #33ccff;
-  --warn: #ffaa00;
-  --danger: #ff5555;
-  --ok: #00ff7f;
-  --chip: #1a1a1a;
-  --border: #444444;
-}
-body.high-contrast .btn-brand {
-    color: #000;
-}
-body.high-contrast .oktext { color: var(--ok); }
-body.high-contrast .danger { color: var(--danger); }
-body.high-contrast .warntext { color: var(--warn); }
-
-
-</style>
-
-<script>
-// Apply saved theme pre-paint to avoid flashes
-(function(){
-  try{
-    var th = (function(){var t=localStorage.getItem('vp_theme'); if(t===''){localStorage.setItem('vp_theme','dark'); t='dark';} return t || 'dark';})();
-    document.documentElement.setAttribute('data-theme', th);
-  }catch(e){}
-})();
-</script>
-
-
-<style id="vp-themes">
-
-/* Background & card polish */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Table/rows subtle */
-
-
-
-
-/* Demo tour highlight uses theme --ring variable */
-
-/* Ensure label chips are readable */
-
-
-html[data-theme="light-warm"]{
-  --ring: rgba(180,119,0,.45);
-  --bg:#f7f5ef;
-  --panel:#ffffff;
-  --muted:#f1ede4;
-  --text:#1a1d1f;
-  --sub:#5a646e;
-  --brand:#16a34a;
-  --accent:#2563eb;
-  --warn:#b45309;
-  --danger:#b91c1c;
-  --ok:#166534;
-  --chip:#f5efe6;
-  --border:#e2dbc9;
-}
-/* Component overrides for Warm Light to ensure readability */
-html[data-theme="light-warm"] body{ background:var(--bg); color:var(--text); }
-html[data-theme="light-warm"] .sidebar{ background:linear-gradient(180deg,#ffffff,#faf6ef); }
-html[data-theme="light-warm"] .btn{ 
-  background:linear-gradient(180deg,#ffffff,#f6f1e6); 
-  color:var(--text);
-  border-color:#d7ccb4;
-}
-html[data-theme="light-warm"] .btn-primary{ background:linear-gradient(180deg,#eef2ff,#e6ecff); border-color:#c9d2f6; color:#0f172a; }
-html[data-theme="light-warm"] .btn-brand{ background:linear-gradient(180deg,#daf8e8,#c8f1dc); border-color:#9cd8be; color:#052914; }
-html[data-theme="light-warm"] .btn-warn{ background:#fff4e0; border-color:#e6caa0; color:#7a4b00; }
-html[data-theme="light-warm"] .btn-danger{ background:#ffe8e8; border-color:#f1b3b3; color:#7a0a12; }
-html[data-theme="light-warm"] .input, 
-html[data-theme="light-warm"] select, 
-html[data-theme="light-warm"] textarea{
-  background:#ffffff;
-  color:#1a1d1f;
-  border-color:#d7ccb4;
-}
-html[data-theme="light-warm"] .accordion-item{ background:#fff; }
-html[data-theme="light-warm"] .accordion-head{ background:#faf6ef; }
-html[data-theme="light-warm"] .tag{ background:#faf6ef; color:#475569; border-color:#e2dbc9; }
-html[data-theme="light-warm"] .tag.ok{ color:#065f46; background:#e9fdf5; border-color:#b7e4d3; }
-html[data-theme="light-warm"] .tag.warn{ color:#92400e; background:#fff7ed; border-color:#f5d3a2; }
-html[data-theme="light-warm"] .tag.block{ color:#7f1d1d; background:#fef2f2; border-color:#f3b4b4; }
-
-
-</style>
-
-
-<style id="vp-theme-fixes">
-/* Tour / spotlight highlight: force themed glow */
-.demo-highlight,
-.tour-highlight,
-[data-tour-highlight],
-.shepherd-enabled,
-.introjs-helperLayer,
-#demo-tour-highlight {
-  outline: 3px solid var(--brand) !important;
-  box-shadow: 0 0 22px var(--ring) !important;
-  border-radius: .5rem !important;
-}
-
-/* Warm Light: improve pill/chip/badge readability */
-html[data-theme="light-warm"] .chip,
-html[data-theme="light-warm"] .pill,
-html[data-theme="light-warm"] .tag,
-html[data-theme="light-warm"] .label,
-html[data-theme="light-warm"] .status-pill{
-  background:#ffffff !important;
-  color:#1f2937 !important;
-  border-color:#e2dbc9 !important;
-}
-
-/* Warm Light input focus */
-html[data-theme="light-warm"] .input:focus,
-html[data-theme="light-warm"] select:focus,
-html[data-theme="light-warm"] textarea:focus{
-  outline:2px solid var(--brand) !important;
-  box-shadow:0 0 0 3px rgba(22,163,74,.18) !important;
-}
-</style>
-
-
-
-
-<style>
-html[data-theme="light-warm"] select,
-html[data-theme="light-warm"] .input,
-html[data-theme="light-warm"] textarea{
-  background:#ffffff !important;
-  color:#1a1d1f !important;
-  border-color:#d7ccb4 !important;
-}
-</style>
-
-<style id="vp-overlay-theme">
-html[data-theme="light-warm"] #demo-tour-overlay { background: rgba(0,0,0,.35) !important; }
-html[data-theme="light"] #demo-tour-overlay { background: rgba(0,0,0,.35) !important; }
-</style>
-
-<style id="vp-warmlight-cardfix">
-/* Warm Light cards and modal content */
-html[data-theme="light-warm"] .card{ 
-  background:#ffffff; 
-  color:#1a1d1f; 
-  border-color:#e2dbc9; 
-  box-shadow: 0 8px 24px rgba(0,0,0,.08), inset 0 1px 0 rgba(255,255,255,.6);
-}
-html[data-theme="light-warm"] .modal-card{ background:#ffffff; color:#1a1d1f; border-color:#e2dbc9; }
-html[data-theme="light-warm"] .label, 
-html[data-theme="light-warm"] .section-title{ color:#0f172a; }
-</style>
-
-
-<script id="vp-force-login">
-// Force-start on the login page: ignore any saved session
-try { localStorage.removeItem('session'); } catch(e){}
-</script>
-
-
-<style id="vp-tour-overlay-tune">
-/* Make background content more visible during tour */
-#demo-tour-overlay{
-  background: rgba(0,0,0,.25) !important;        /* was ~.6 in original; .25 is much lighter */
-  backdrop-filter: blur(1px) saturate(.95);       /* subtle blur to keep focus on the tour step */
-}
-/* Slightly lighter still for warm/light themes */
-html[data-theme="light-warm"] #demo-tour-overlay,
-html[data-theme="light"] #demo-tour-overlay{
-  background: rgba(0,0,0,.18) !important;
-  backdrop-filter: blur(.5px) saturate(.98);
-}
-/* Keep the highlight ring visible on any background */
-.demo-highlight,
-.tour-highlight,
-[data-tour-highlight],
-.shepherd-enabled,
-.introjs-helperLayer,
-#demo-tour-highlight {
-  outline: 3px solid var(--brand) !important;
-  box-shadow: 0 0 22px var(--ring) !important;
-  border-radius: .5rem !important;
-}
-</style>
-
-
-<script id="vp-safe-helpers">
-(function(){
-  window.qs = function(sel, root){ try { return (root||document).querySelector(sel); } catch(e){ return null; } };
-  window.qsa = function(sel, root){ try { return (root||document).querySelectorAll(sel); } catch(e){ return []; } };
-  window.safeElementOperation = function(selector, operation){
+  <script>
+  (function(){
     try{
-      const el = typeof selector==='string' ? qs(selector) : selector;
-      if (el) { operation(el); }
-      else { console.warn('Element not found:', selector); }
-    }catch(err){ console.error('safeElementOperation error:', err); }
-  };
-})();
-</script>
+      var k = 'vp_theme';
+      var s = localStorage.getItem(k);
+      var t = s ? s : ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    }catch(e){}
+  })();
+  </script>
 
+  <style id="vp-light-theme">
+    /* Softer, low‑glare palette */
+    html[data-theme="light"]{
+      --bg:#eef2f6;          /* page background – soft cool grey */
+      --panel:#ffffff;        /* cards/panels */
+      --muted:#f5f7fb;        /* muted fills */
+      --text:#0e1623;         /* main text */
+      --sub:#485260;          /* secondary text */
+      --brand:#16a34a;        /* VeriPura green */
+      --accent:#2563eb;       /* links/accents */
+      --warn:#b45309;
+      --danger:#b91c1c;
+      --ok:#059669;
+      --chip:#f8fafc;
+      --border:#dfe6ef;       /* slightly stronger than before */
+      --shadow:0 1px 2px rgba(16,24,40,.06),0 4px 12px rgba(16,24,40,.06);
+    }
+
+    /* Base */
+    html[data-theme="light"] body{ background:var(--bg); color:var(--text); }
+    html[data-theme="light"] a{ color:var(--accent); }
+
+    /* Panels / cards / sidebar */
+    html[data-theme="light"] .card,
+    html[data-theme="light"] .panel,
+    html[data-theme="light"] .sidebar,
+    html[data-theme="light"] header,
+    html[data-theme="light"] footer,
+    html[data-theme="light"] main,
+    html[data-theme="light"] section,
+    html[data-theme="light"] nav{
+      background:var(--panel);
+      box-shadow:var(--shadow);
+      border-color:var(--border);
+    }
+
+    /* Inputs */
+    html[data-theme="light"] input,
+    html[data-theme="light"] select,
+    html[data-theme="light"] textarea{
+      background:#ffffff;
+      border:1px solid var(--border);
+      color:var(--text);
+    }
+    html[data-theme="light"] input::placeholder,
+    html[data-theme="light"] textarea::placeholder{ color:#778396; }
+
+    /* Buttons */
+    html[data-theme="light"] .btn{
+      background:linear-gradient(180deg,#ffffff,#f3f6fb);
+      border:1px solid var(--border);
+      color:var(--text);
+    }
+    html[data-theme="light"] .btn:hover{ filter:brightness(.98); }
+    html[data-theme="light"] .btn:active{ transform:translateY(1px); }
+
+    /* Tags / statuses use color tints for readability */
+    html[data-theme="light"] .tag{
+      color:#1f2a37;
+      background:#f2f5fa;
+      border:1px solid #e1e7f0;
+    }
+    html[data-theme="light"] .tag.ok{
+      color:#166534;
+      background:#eafaf1;
+      border-color:#c6ead6;
+    }
+    html[data-theme="light"] .tag.warn{
+      color:#92400e;
+      background:#fff4e5;
+      border-color:#f3d0a6;
+    }
+    html[data-theme="light"] .tag.block{
+      color:#9f1239;
+      background:#feecef;
+      border-color:#f6c6cf;
+    }
+
+    /* Chips */
+    html[data-theme="light"] .chip{
+      background:var(--chip);
+      border:1px solid var(--border);
+      color:var(--sub);
+    }
+
+    /* Accordion items (e.g., PO rows) */
+    html[data-theme="light"] .accordion-item{
+      background:#ffffff;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+    }
+
+    /* Tables: zebra rows & clearer headers */
+    html[data-theme="light"] .table th{
+      background:#f2f6fb;
+      color:#1f2a37;
+      border-bottom:1px solid var(--border);
+    }
+    html[data-theme="light"] .table tr:nth-child(even) td{ background:#fbfdff; }
+
+    /* KBD / helper keys */
+    html[data-theme="light"] .kbd{ background:#eef2f7; border-color:#d7dee7; color:#1f2937; }
+  </style>
+
+  <style id="vp-light-theme-tweaks">
+    /* Button variants: give them solid colors for clarity */
+    html[data-theme="light"] .btn-brand,
+    html[data-theme="light"] .btn-primary{
+      background: var(--accent);
+      color: #ffffff;
+      border-color: transparent;
+    }
+    html[data-theme="light"] .btn-ok{
+      background: var(--ok);
+      color:#ffffff;
+      border-color: transparent;
+    }
+    html[data-theme="light"] .btn-warn{
+      background: var(--warn);
+      color:#ffffff;
+      border-color: transparent;
+    }
+    html[data-theme="light"] .btn-danger{
+      background: var(--danger);
+      color:#ffffff;
+      border-color: transparent;
+    }
+    html[data-theme="light"] .btn-brand{ background: var(--brand); }
+    html[data-theme="light"] .btn:hover{ filter:none; opacity:.96 }
+    html[data-theme="light"] .btn:focus-visible{
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* Pills (e.g., thread author badges) */
+    html[data-theme="light"] .pill{
+      background:#121826;
+      color:#f8fafc;
+      border:0;
+    }
+
+    /* Section headings & dividers */
+    html[data-theme="light"] h2,
+    html[data-theme="light"] h3{
+      color:#0e1623;
+    }
+    html[data-theme="light"] hr{
+      border:0;
+      border-top:1px solid var(--border);
+    }
+
+    /* PO list hover cue */
+    html[data-theme="light"] .accordion-item:hover{
+      box-shadow: 0 2px 6px rgba(16,24,40,.08), 0 8px 18px rgba(16,24,40,.08);
+    }
+
+    /* Dense chip layout */
+    html[data-theme="light"] .chip{ padding: .2rem .5rem; }
+
+    /* Softer red for 'Label not accepted' style (uses .tag.block) */
+    html[data-theme="light"] .tag.block{
+      background:#fdecef;
+      border-color:#f5c6cf;
+      color:#7f1d1d;
+    }
+  </style>
+
+  <style id="vp-light-warm-theme">
+    /* Warm Light theme (paper/sepia, low glare) */
+    html[data-theme="light-warm"]{
+      --bg:#f6f2ea;           /* warm paper tone */
+      --panel:#fffdf8;         /* slightly warm panel */
+      --muted:#f7f4ee;
+      --text:#0e141a;         /* deep neutral */
+      --sub:#5b5750;
+      --brand:#16a34a;         /* keep brand green */
+      --accent:#1f4fd7;         /* slightly toned blue */
+      --warn:#b05305;
+      --danger:#b91c1c;
+      --ok:#0b8a5b;
+      --chip:#fffcf6;
+      --border:#e6dfd2;
+      --shadow:0 1px 2px rgba(89,69,32,.06),0 4px 12px rgba(89,69,32,.06);
+    }
+    html[data-theme="light-warm"] body{ background:var(--bg); color:var(--text); }
+    html[data-theme="light-warm"] a{ color:var(--accent); }
+
+    html[data-theme="light-warm"] .card,
+    html[data-theme="light-warm"] .panel,
+    html[data-theme="light-warm"] .sidebar,
+    html[data-theme="light-warm"] header,
+    html[data-theme="light-warm"] footer,
+    html[data-theme="light-warm"] main,
+    html[data-theme="light-warm"] section,
+    html[data-theme="light-warm"] nav{
+      background:var(--panel);
+      box-shadow:var(--shadow);
+      border-color:var(--border);
+    }
+
+    html[data-theme="light-warm"] input,
+    html[data-theme="light-warm"] select,
+    html[data-theme="light-warm"] textarea{
+      background:#fffdf8;
+      border:1px solid var(--border);
+      color:var(--text);
+    }
+    html[data-theme="light-warm"] input::placeholder,
+    html[data-theme="light-warm"] textarea::placeholder{ color:#7b776f; }
+
+    html[data-theme="light-warm"] .btn{
+      background:linear-gradient(180deg,#fffdf8,#f3efe6);
+      border:1px solid var(--border);
+      color:var(--text);
+    }
+    html[data-theme="light-warm"] .btn-brand{ background:var(--brand); color:#fff; border-color:transparent; }
+    html[data-theme="light-warm"] .btn-primary{ background:var(--accent); color:#fff; border-color:transparent; }
+    html[data-theme="light-warm"] .btn-ok{ background:var(--ok); color:#fff; border-color:transparent; }
+    html[data-theme="light-warm"] .btn-warn{ background:var(--warn); color:#fff; border-color:transparent; }
+    html[data-theme="light-warm"] .btn-danger{ background:var(--danger); color:#fff; border-color:transparent; }
+
+    html[data-theme="light-warm"] .tag{ background:#fff8ee; border:1px solid #eadfcd; color:#3a332b; }
+    html[data-theme="light-warm"] .tag.ok{ background:#ecfaf3; border-color:#c4e9d7; color:#166534; }
+    html[data-theme="light-warm"] .tag.warn{ background:#fff1e0; border-color:#f1d1a8; color:#8a4b0b; }
+    html[data-theme="light-warm"] .tag.block{ background:#fee8ea; border-color:#f3c3cc; color:#7f1d1d; }
+
+    html[data-theme="light-warm"] .table th{ background:#f5efe4; color:#1e272f; border-bottom:1px solid var(--border); }
+    html[data-theme="light-warm"] .table tr:nth-child(even) td{ background:#fffaf3; }
+    html[data-theme="light-warm"] .accordion-item{ background:#fffdf8; border:1px solid var(--border); box-shadow:var(--shadow); }
+    html[data-theme="light-warm"] .chip{ background:var(--chip); border:1px solid var(--border); color:var(--sub); }
+    html[data-theme="light-warm"] .pill{ background:#1a1f2a; color:#fffaf0; border:0; }
+  </style>
+
+  <style id="vp-density-styles">
+    /* Compact density reduces vertical rhythm by ~14% */
+    html[data-density="compact"] .btn{ padding:6px 10px; font-size:12px; border-radius:.5rem; }
+    html[data-density="compact"] .chip{ padding:.15rem .4rem; font-size:12px; }
+    html[data-density="compact"] .pill{ padding:.2rem .5rem; font-size:12px; }
+    html[data-density="compact"] .input,
+    html[data-density="compact"] select,
+    html[data-density="compact"] textarea{ padding:6px 8px; font-size:13px; }
+    html[data-density="compact"] .accordion-item{ margin:8px 0; border-radius:.8rem; }
+    html[data-density="compact"] .accordion-head{ padding:10px 14px; }
+    html[data-density="compact"] .accordion-body{ padding:12px 14px; }
+    html[data-density="compact"] .card,
+    html[data-density="compact"] .panel{ padding:12px; }
+    html[data-density="compact"] .table td,
+    html[data-density="compact"] .table th{ padding:8px 10px; }
+    html[data-density="compact"] h2{ margin:10px 0 8px; }
+    html[data-density="compact"] h3{ margin:8px 0 6px; }
+    html[data-density="compact"] .section{ margin:10px 0; }
+  </style>
+
+  <style id="vp-emerald-theme">
+    /* Emerald (green dark) theme */
+    html[data-theme="emerald"]{
+      --bg:#0b2a22;           /* deep green base */
+      --bg2:#10362b;          /* secondary for gradients */
+      --panel:#104033;         /* panel surface */
+      --muted:#0f372c;         /* muted fills */
+      --text:#e9fff5;         /* primary text */
+      --sub:#bfe8d4;           /* secondary text */
+      --brand:#22c55e;         /* emerald */
+      --accent:#34d399;         /* accent green */
+      --warn:#f59e0b;          /* amber */
+      --danger:#ef4444;         /* red */
+      --ok:#10b981;           /* success */
+      --chip:#0d2f26;
+      --border:#1d8a68;         /* card borders */
+      --glow:#3af29d;          /* subtle neon for outlines */
+      --shadow:0 1px 2px rgba(0,0,0,.35),0 8px 24px rgba(0,0,0,.35);
+    }
+
+    html[data-theme="emerald"] body{
+      background: radial-gradient(1000px 600px at 20% -10%, var(--bg2), transparent) ,
+                  radial-gradient(800px 500px at 100% 0%, #0c3a2d55, transparent),
+                  var(--bg);
+      color: var(--text);
+    }
+
+    html[data-theme="emerald"] a{ color: var(--accent); }
+
+    /* Panels / containers */
+    html[data-theme="emerald"] .card,
+    html[data-theme="emerald"] .panel,
+    html[data-theme="emerald"] .sidebar,
+    html[data-theme="emerald"] header,
+    html[data-theme="emerald"] footer,
+    html[data-theme="emerald"] main,
+    html[data-theme="emerald"] section,
+    html[data-theme="emerald"] nav{
+      background: var(--panel);
+      color: var(--text);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    /* Headings get a soft emerald tint */
+    html[data-theme="emerald"] h1,
+    html[data-theme="emerald"] h2,
+    html[data-theme="emerald"] h3{
+      color:#a7f3c6;
+    }
+
+    /* Inputs */
+    html[data-theme="emerald"] input,
+    html[data-theme="emerald"] select,
+    html[data-theme="emerald"] textarea{
+      background:#0e332a;
+      border:1px solid #1a5e49;
+      color:var(--text);
+    }
+    html[data-theme="emerald"] input::placeholder,
+    html[data-theme="emerald"] textarea::placeholder{ color:#91cbb0; }
+
+    /* Buttons */
+    html[data-theme="emerald"] .btn{
+      background: linear-gradient(180deg, #165a45, #114a39);
+      border:1px solid #1b7b5c;
+      color:#ecfdf5;
+    }
+    html[data-theme="emerald"] .btn-brand{ background: var(--brand); color:#052e23; border-color:transparent; }
+    html[data-theme="emerald"] .btn-primary{ background: #1f9e6d; color:#052e23; border-color:transparent; }
+    html[data-theme="emerald"] .btn-ok{ background: var(--ok); color:#052e23; border-color:transparent; }
+    html[data-theme="emerald"] .btn-warn{ background: var(--warn); color:#241a02; border-color:transparent; }
+    html[data-theme="emerald"] .btn-danger{ background: var(--danger); color:#2a0b0b; border-color:transparent; }
+    html[data-theme="emerald"] .btn:hover{ filter:none; opacity:.95 }
+    html[data-theme="emerald"] .btn:focus-visible{ outline:2px solid var(--glow); outline-offset:2px; }
+
+    /* Tags */
+    html[data-theme="emerald"] .tag{
+      background:#0c342a;
+      border:1px solid #1f6f56;
+      color:#d7fbec;
+    }
+    html[data-theme="emerald"] .tag.ok{ background:#0f3b2f; border-color:#2cc98e; color:#a7f3c6; }
+    html[data-theme="emerald"] .tag.warn{ background:#3b2e0f; border-color:#e9b15b; color:#ffd79a; }
+    html[data-theme="emerald"] .tag.block{ background:#3b1216; border-color:#f08a95; color:#fecdd3; }
+
+    /* Chips */
+    html[data-theme="emerald"] .chip{
+      background: var(--chip);
+      border: 1px solid var(--border);
+      color: var(--sub);
+    }
+
+    /* Tables and accordion */
+    html[data-theme="emerald"] .table th{ background:#123b30; color:#d9fff0; border-bottom:1px solid var(--border); }
+    html[data-theme="emerald"] .table tr:nth-child(even) td{ background:#0f332a; }
+    html[data-theme="emerald"] .accordion-item{ background:#0f3a2f; border:1px solid var(--border); box-shadow: var(--shadow); }
+    html[data-theme="emerald"] .accordion-item:hover{ box-shadow: 0 2px 8px rgba(0,0,0,.4), 0 10px 28px rgba(0,0,0,.35); }
+
+    /* Fancy outline for hero/intro blocks if present */
+    html[data-theme="emerald"] .panel.hero,
+    html[data-theme="emerald"] .card.hero{
+      box-shadow: 0 0 0 1px var(--glow), inset 0 0 0 1px rgba(255,255,255,.03), var(--shadow);
+      border-radius: 18px;
+    }
+  </style>
+
+  <style id="vp-promo-login">
+    #loginPromo .section-title{ font-size:1.25rem; font-weight:700; margin-bottom:.35rem; }
+    #loginPromo .promo-list{ margin: .25rem 0 .5rem 1.1rem; padding:0; }
+    #loginPromo .promo-list li{ margin:.4rem 0; line-height:1.45; }
+    #loginPromo .promo-cta{ text-align:right; margin-top:.35rem; color:var(--sub); font-size:.95rem; }
+    /* Slightly larger text on wider screens */
+    @media (min-width: 1100px){
+      #loginPromo .section-title{ font-size:1.35rem; }
+      #loginPromo .promo-list li{ margin:.5rem 0; }
+    }
+  </style>
+
+  <style>
+  /* === SysAdmin-only nav CSS (defensive) === */
+  /* Hide everything by default, then re-show Sys Admin + Logout */
+  body[data-role="Sys Admin"] #nav [data-tab]{ display:none !important; }
+  body[data-role="Sys Admin"] #nav [data-tab="sysadmin"]{ display:inline-flex !important; }
+  body[data-role="Sys Admin"] #nav #logout{ display:inline-flex !important; }
+  </style>
 </head>
 <body>
-<div id="app"></div>
-<div id="demo-control-panel"></div>
-<div id="demo-tour-overlay" class="hidden"></div>
-<div id="demo-tour-callout" class="hidden"></div>
-<div id="loading-overlay" class="hidden">Switching Role...</div>
-<div id="modal" class="hidden"></div>
+  <div id="app"></div>
 
-<script>
-(function(){
-  "use strict";
+  <script>
+  (function(){
+    "use strict";
+    function escapeHTML(str) {
+      if (typeof str !== 'string') return str;
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
 
-  // ---------- Utilities ----------
-  const $ = (sel, root=document) => root.querySelector(sel);
-  const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-  const escapeHTML = (s) => String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
-  function toast(msg, kind='ok'){
-    const el = document.createElement('div');
-    el.className = 'toast ' + (kind==='warn'?'warn':kind==='err'?'err':'ok');
-    el.textContent = msg;
-    document.body.appendChild(el);
-    setTimeout(()=>{ el.remove(); }, 2600);
-  }
-  function save(){ localStorage.setItem('vp', JSON.stringify(state)); }
-  function load(){
+
+  // ---------- Visibility & Context Utilities (added) ----------
+  function _applyBodyContext(){
     try{
-      const raw = localStorage.getItem('vp');
-      if(!raw) return null;
-      return JSON.parse(raw);
-    }catch(e){ return null; }
-  }
-  function deepClone(x){ return JSON.parse(JSON.stringify(x)); }
-
-  // ---------- Missing Functions (Fixed) ----------
-  function now() {
-    return new Date().toISOString().slice(0, 16).replace('T', ' ');
+      const ctx = _vpCurrentContext ? _vpCurrentContext() : {companyType:null, role:null};
+      const role = canonRoleName ? canonRoleName(ctx.role) : (ctx.role || '');
+      const ctype = canonCompanyType ? canonCompanyType(ctx.companyType) : (ctx.companyType || '');
+      document.body.setAttribute('data-role', role || '');
+      document.body.setAttribute('data-company-type', ctype || '');
+    }catch(e){}
   }
 
-  function shortId(prefix='P') {
-    return prefix + Math.random().toString(36).slice(2, 8).toUpperCase();
+  // Simple CSV exporter for small tables
+  function exportTableCSV(selector, filename){
+    try{
+      const table = document.querySelector(selector);
+      if(!table) return;
+      const rows = Array.from(table.querySelectorAll('tr'));
+      const csv = rows.map(tr => Array.from(tr.children).map(td => {
+        const t = (td.textContent || '').replace(/\s+/g,' ').trim().replace(/"/g,'""');
+        return `"${t}"`;
+      }).join(',')).join('\n');
+      const blob = new Blob([csv], {type:'text/csv'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = filename || 'export.csv';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url), 1000);
+    }catch(e){ console.warn('Export failed', e); }
   }
 
-  async function hashDataURL(dataUrl) {
-    try {
-      const encoder = new TextEncoder();
-      const data = encoder.encode(dataUrl);
-      let hash = 0;
-      for (let i = 0; i < data.length; i++) {
-        const char = data[i];
-        hash = ((hash << 5) - hash) + char;
-        hash = hash & hash;
+  // Enforce nav visibility based on role + company tab rules
+  window._vpEnforceNavVisibility = function(){
+    try{
+      _applyBodyContext();
+      const ctx = _vpCurrentContext ? _vpCurrentContext() : null;
+      if(!ctx) return;
+      const role = canonRoleName(ctx.role);
+      const ctype = canonCompanyType(ctx.companyType);
+      const nav = document.getElementById('nav');
+      if(!nav) return;
+      const buttons = Array.from(nav.querySelectorAll('button[data-tab]'));
+      const allowedList = allowedTabsFor ? allowedTabsFor(ctype, role) : new Set();
+      const allowedIds = new Set(Array.from(allowedList).map(canonTabId));
+      buttons.forEach(btn => {
+        const id = btn.dataset.tab;
+        const ok = (role === 'Sys Admin') ? (id === 'sysadmin') : allowedIds.has(id);
+        btn.style.display = ok ? '' : 'none';
+        if (!ok) btn.classList.remove('active');
+      });
+      const logout = document.getElementById('logout');
+      if(logout) logout.style.display = '';
+
+      // If the current active tab isn't allowed, switch to an allowed default
+      const active = nav.querySelector('button.active');
+      const activeId = active ? active.dataset.tab : null;
+      const activeAllowed = (role === 'Sys Admin') ? (activeId === 'sysadmin') : (activeId && allowedIds.has(activeId));
+      if(!activeAllowed){
+        const targetId = (role === 'Sys Admin') ? 'sysadmin' : (Array.from(allowedIds)[0] || 'dashboard');
+        const target = nav.querySelector(`[data-tab="${targetId}"]`);
+        if(target){ target.click(); }
       }
-      return Math.abs(hash).toString(16).slice(0, 8);
-    } catch (e) {
-      return Math.random().toString(36).slice(2, 10);
+
+      if(!window._vpNavObserver){
+        window._vpNavObserver = new MutationObserver(() => { try{ wireNav(); window._vpEnforceNavVisibility(); }catch(e){} });
+        window._vpNavObserver.observe(nav, {childList:true, subtree:true, attributes:true});
+      }
+    }catch(e){ console.warn('EnforceNav failed', e); }
+  };
+  // ---------- Utilities ----------
+  // ---------- Nav wiring (robust, delegated) ----------
+  function wireNav(){
+    const nav = document.getElementById('nav');
+    if(!nav) return;
+    // Remove any previous handler
+    if(nav._wired) return;
+    nav.addEventListener('click', (e)=>{
+      const btn = e.target.closest('button[data-tab]');
+      if(!btn) return;
+      const tab = btn.dataset.tab;
+      // Active state
+      $$('#nav button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      // Show/hide sections
+      ['dashboard','pos','documents','wallet','partners','invitations','sysadmin'].forEach(t=>{
+        const el = document.getElementById('tab-'+t);
+        if(el) el.classList.toggle('hidden', t!==tab);
+      });
+      // Render the selected tab
+      try{
+        if(tab==='dashboard') renderDashboard();
+        else if(tab==='pos') renderPOs();
+        else if(tab==='documents') renderDocuments();
+        else if(tab==='wallet') renderWallet();
+        else if(tab==='partners') renderPartners();
+        else if(tab==='invitations') renderInvitations();
+        else if(tab==='sysadmin') renderSysAdmin();
+      }catch(err){ console.warn('Nav render error', err); }
+    });
+    nav._wired = true;
+  }
+
+  // === Counterparty helpers (PO display) ===
+  function counterpartyCompanyId(po, meId = session.companyId){
+    if(!po) return null;
+    const buyer = po.buyerId || po.buyer_id || po.buyer;
+    const supplier = (po.supplierId ?? po.sellerId ?? po.supplier_id ?? po.supplier);
+    if(meId === buyer) return supplier;
+    if(meId === supplier) return buyer;
+    // Fallback: return the non-me party if possible
+    return supplier && supplier !== meId ? supplier : buyer;
+  }
+  function counterpartyName(po, meId = session.companyId){
+    const otherId = counterpartyCompanyId(po, meId);
+    const other = otherId ? companyById(otherId) : null;
+    return other ? other.name : 'Unknown';
+  }
+
+
+  // === Traceability Fallbacks ===
+  // If a PO has missing/empty trace, infer a sensible default from buyer/supplier types and items.
+  function ensureTrace(p){
+    try{
+      if(!p || (p.trace && Object.keys(p.trace||{}).length>0)) return p;
+      const buyer = companyById(p.buyerId);
+      const supplier = companyById(p.supplierId);
+      const bt = buyer ? buyer.type : null;
+      const st = supplier ? supplier.type : null;
+
+      // infer chain order based on company types
+      let chain = [];
+      if (st==='Coop' && bt==='Processor'){ chain = [supplier.id, buyer.id]; }
+      else if (st==='Processor' && bt==='Importer'){ chain = [supplier.id, buyer.id]; }
+      else if (st==='Coop' && bt==='Importer'){ chain = [supplier.id, 'C_PRO', buyer.id]; } // fallback via processor
+      else { chain = [supplier?.id||'C_COO1','C_PRO', buyer?.id||'C_IMP']; }
+
+      // build simple lots from items (split first item qty 60/40 as two lots)
+      const total = (p.items||[]).reduce((a,it)=> a + (Number(it.qty)||0), 0);
+      const lotA = Math.round(total * 0.6) || (total||100)/2;
+      const lotB = Math.max(0, total - lotA);
+      const lots = [{id:'LOT-A', qty: lotA}, {id:'LOT-B', qty: lotB}];
+
+      // basic geo path string (can be refined later)
+      const geo = (function(){
+        const map = {
+          'C_COO1':'16.07,102.67', 'C_COO2':'14.22,100.88',
+          'C_PRO':'13.75,100.50', 'C_IMP':'52.37,4.90'
+        };
+        const points = chain.map(c=> map[c] || map[c?.id] || '—').filter(Boolean);
+        return points.join(' → ');
+      })();
+
+      p.trace = { lots, chain, geo };
+    }catch(e){ /* no-op */ }
+    return p;
+  }
+  // === BEGIN: AUTO-APPLIED TAB RULES ===
+  const TAB_RULES = {
+    "Importer": {
+      "Procurement Manager": [
+        "Dashboard",
+        "Purchase Orders",
+        "Documents",
+        "Wallet",
+        "Business Partners",
+        "Invitations"
+      ],
+      "QA / Label Manager": [
+        "Dashboard",
+        "Purchase Orders",
+        "Documents",
+        "Business Partners"
+      ],
+      "Logistics Coordinator": [
+        "Purchase Orders",
+        "Documents",
+        "Wallet",
+        "Business Partners",
+        "Invitations"
+      ],
+      "Finance / Wallet Admin": [
+        "Wallet"
+      ],
+      "Sys Admin": [
+        "Sys Admin"
+      ]
+    },
+    "Processor": {
+      "Export Manager": [
+        "Dashboard",
+        "Purchase Orders",
+        "Documents",
+        "Wallet",
+        "Business Partners",
+        "Invitations"
+      ],
+      "Production Manager": [
+        "Dashboard",
+        "Purchase Orders",
+        "Documents",
+        "Wallet",
+        "Business Partners",
+        "Invitations"
+      ],
+      "Account Manager": [
+        "Dashboard",
+        "Purchase Orders",
+        "Documents",
+        "Wallet",
+        "Business Partners",
+        "Invitations"
+      ],
+      "Quality Manager": [
+        "Dashboard",
+        "Purchase Orders",
+        "Documents"
+      ],
+      "Compliance Manager": [
+        "Dashboard",
+        "Purchase Orders",
+        "Documents"
+      ],
+      "Logistics Manager": [
+        "Dashboard",
+        "Purchase Orders",
+        "Documents",
+        "Wallet",
+        "Business Partners",
+        "Invitations"
+      ],
+      "Finance / Wallet Admin": [
+        "Wallet",
+        "Business Partners"
+      ],
+      "Sys Admin": [
+        "Sys Admin"
+      ]
+    },
+    "Coop": {
+      "Sales Manager": [
+        "Dashboard",
+        "Purchase Orders",
+        "Documents",
+        "Wallet",
+        "Business Partners",
+        "Invitations"
+      ],
+      "QA Liaison": [
+        "Purchase Orders",
+        "Documents",
+        "Business Partners"
+      ],
+      "Operations Manager": [
+        "Dashboard",
+        "Purchase Orders",
+        "Documents",
+        "Wallet",
+        "Business Partners",
+        "Invitations"
+      ],
+          "Logistics Manager": [
+        "Dashboard",
+        "Purchase Orders",
+        "Documents",
+        "Wallet",
+        "Business Partners",
+        "Invitations"
+      ],
+      "Finance / Wallet Admin": [
+        "Wallet"
+      ],
+      "Sys Admin": [
+        "Sys Admin"
+      ]
+    }
+  };
+  // Helper: given company type (Importer/Processor/Coop) and role string, return a Set of allowed tabs
+  function allowedTabsFor(companyType, role){
+    try{
+      const ct = canonCompanyType(companyType);
+      const rr = canonRoleName(role);
+      const map = TAB_RULES[ct];
+      if(!map) return new Set(); // strict: unknown company -> deny all
+      const list = map[rr] || [];
+      return new Set(list);
+    }catch(e){ return new Set(); }
+  }
+  // === END: AUTO-APPLIED TAB RULES ===
+
+  // --- Canonical company/role normalizers ---
+  const ROLE_ALIASES = {
+    "logistics manager": "Logistics Manager",
+    "sys admin": "Sys Admin",
+    "system admin": "Sys Admin",
+    "finance/wallet admin": "Finance / Wallet Admin",
+    "finance wallet admin": "Finance / Wallet Admin",
+    "qa/label manager": "QA / Label Manager",
+    "qa label manager": "QA / Label Manager",
+    "procurement manager": "Procurement Manager",
+    "logistics coordinator": "Logistics Coordinator",
+    "export manager": "Export Manager",
+    "production manager": "Production Manager",
+    "quality manager": "Quality Manager",
+    "compliance manager": "Compliance Manager",
+    "account manager": "Account Manager",
+    "sales manager": "Sales Manager",
+    "operations manager": "Operations Manager"
+  };
+  function canonCompanyType(t){
+    if(!t) return null;
+    const s = String(t).trim().toLowerCase();
+    if (s.includes('import')) return 'Importer';
+    if (s.includes('process')) return 'Processor';
+    if (s.includes('coop')) return 'Coop';
+    if (s.includes('co-op') || s.includes('cooperative')) return 'Coop';
+    return t;
+  }
+  function canonRoleName(r){
+    if(!r) return null;
+    const s = String(r).replace(/\s*\/\s*/g,'/').replace(/\s+/g,' ').trim().toLowerCase();
+    const aliased = ROLE_ALIASES[s];
+    if (aliased) return aliased;
+    // Title case fallback
+    return r;
+  }
+
+  // --- Canonical tab id mapping (UI label <-> data-tab) ---
+  const TAB_NAME_TO_ID = {
+    "Dashboard": "dashboard",
+    "Purchase Orders": "pos",
+    "Documents": "documents",
+    "Wallet": "wallet",
+    "Business Partners": "partners",
+    "Invitations": "invitations",
+    "Sys Admin": "sysadmin"
+  };
+  function canonTabId(s){
+    if(!s) return "";
+    const raw = String(s).trim();
+    if (TAB_NAME_TO_ID[raw]) return TAB_NAME_TO_ID[raw];
+    const low = raw.toLowerCase().replace(/[\s_-]+/g,'');
+    if (low === 'po' || low === 'purchaseorders') return 'pos';
+    if (low === 'sysadmin' || low === 'systemadmin' || low === 'sysadministration') return 'sysadmin';
+    if (low === 'businesspartners' || low === 'partners') return 'partners';
+    const known = ['dashboard','pos','documents','wallet','partners','invitations','sysadmin'];
+    if (known.includes(String(s).toLowerCase())) return String(s).toLowerCase();
+    return raw;
+  }
+  // Context helper to resolve current company type and role for the logged-in user
+  function _vpCurrentContext(){
+    try{
+      const sess = (typeof session!=='undefined' && session && session.userId) ? session
+                : (window.session ? window.session : (state && state.session ? state.session : null));
+      let user = null;
+      if(sess && sess.userId){
+        user = (state.users||[]).find(u=>u.id===sess.userId) || null;
+      } else if (state && state.users && state.users.length){
+        user = state.users.find(u=>u.status==='Active') || state.users[0];
+      }
+      if(!user) return { companyType: null, role: null, companyId: null };
+      const company = (state.companies||[]).find(c=>c.id===user.companyId) || null;
+      const companyType = company ? company.type : null;
+      return { companyType, role: user.role, companyId: user.companyId, user };
+    }catch(e){
+      return { companyType: null, role: null, companyId: null };
     }
   }
 
-  // ---------- Seeding ----------
-  const seed = {
-    companies: [
-      {id:'C_IMP', name:'EU Asian Importers', type:'Importer', city:'Amsterdam'},
-      {id:'C_PRO', name:'Bangkok Chili Co., Ltd.', type:'Processor', city:'Bangkok'},
-      {id:'C_COO1', name:'NE Thai Herb Producer', type:'Coop', city:'Udon Thani'},
-      {id:'C_COO2', name:'Central Thai Organic', type:'Coop', city:'Ayutthaya'},
-      {id:'C_PRO2', name:'Siam Coconut Milk Ltd.', type:'Processor', city:'Surat Thani'}
-    ],
-    logisticsProviders: [
-      {id:'LOG_TH1', name:'Thai Express Logistics', region:'Thailand', city:'Bangkok', specialty:'Ground Freight - Regular', services:['domestic_ground','port_transfer']},
-      {id:'LOG_TH2', name:'Bangkok Cold Chain Services', region:'Thailand', city:'Bangkok', specialty:'Ground Freight - Refrigerated', services:['refrigerated_ground','cold_storage']},
-      {id:'LOG_TH3', name:'Siam Ocean Freight Lines', region:'Thailand', city:'Laem Chabang', specialty:'Ocean Freight', services:['ocean_freight','container_shipping']},
-      {id:'LOG_TH4', name:'Mekong Transport Solutions', region:'Thailand', city:'Chiang Mai', specialty:'Ground Freight - Regular', services:['domestic_ground','rural_delivery']},
-      {id:'LOG_TH5', name:'Thai Refrigerated Express', region:'Thailand', city:'Surat Thani', specialty:'Ground Freight - Refrigerated', services:['refrigerated_ground','fresh_transport']},
-      {id:'LOG_EU1', name:'Rotterdam Port Logistics', region:'EU', city:'Rotterdam', specialty:'Ocean Freight', services:['ocean_freight','port_operations','container_handling']},
-      {id:'LOG_EU2', name:'EuroFreight Solutions', region:'EU', city:'Hamburg', specialty:'Ground Freight - Regular', services:['eu_ground','distribution','warehousing']},
-      {id:'LOG_EU3', name:'Antwerp Cold Storage Transport', region:'EU', city:'Antwerp', specialty:'Ground Freight - Refrigerated', services:['refrigerated_ground','cold_storage','eu_distribution']},
-      {id:'LOG_EU4', name:'Amsterdam Logistics Hub', region:'EU', city:'Amsterdam', specialty:'Ground Freight - Regular', services:['eu_ground','last_mile','distribution']},
-      {id:'LOG_EU5', name:'North Sea Freight Services', region:'EU', city:'Hamburg', specialty:'Ocean Freight', services:['ocean_freight','short_sea','feeder_services']},
-      {id:'LOG_EU6', name:'Rotterdam Refrigerated Transport', region:'EU', city:'Rotterdam', specialty:'Ground Freight - Refrigerated', services:['refrigerated_ground','cold_chain','eu_distribution']}
-    ],
-    users: [
-      {id:'U001', companyId:'C_IMP', email:'j.anderson@euasian.com', name:'James Anderson', role:'Procurement Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
-      {id:'U002', companyId:'C_IMP', email:'m.schmidt@euasian.com', name:'Maria Schmidt', role:'QA Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'None'},
-      {id:'U003', companyId:'C_IMP', email:'r.patel@euasian.com', name:'Raj Patel', role:'Finance/Wallet Admin', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
-      {id:'U004', companyId:'C_IMP', email:'admin@euasian.com', name:'System Admin', role:'Sys Admin', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'Super'},
-      {id:'U005', companyId:'C_IMP', email:'s.dupont@euasian.com', name:'Sophie Dupont', role:'Procurement Manager', status:'Suspended', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'None'},
-      {id:'U006', companyId:'C_PRO', email:'s.tanaka@bkc.co.th', name:'Satoshi Tanaka', role:'Export Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
-      {id:'U007', companyId:'C_PRO', email:'a.wong@bkc.co.th', name:'Anong Wong', role:'Quality Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
-      {id:'U008', companyId:'C_PRO', email:'c.somchai@bkc.co.th', name:'Chai Somchai', role:'Logistics Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'None'},
-      {id:'U009', companyId:'C_PRO', email:'p.chen@bkc.co.th', name:'Priya Chen', role:'Finance/Wallet Admin', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
-      {id:'U010', companyId:'C_PRO', email:'admin@bkc.co.th', name:'Processor Admin', role:'Sys Admin', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'Standard'},
-      {id:'U011', companyId:'C_PRO', email:'t.nguyen@bkc.co.th', name:'Tuan Nguyen', role:'Production Manager', status:'Suspended', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'None'},
-      {id:'U012', companyId:'C_COO1', email:'n.pranee@nethp.co.th', name:'Niran Pranee', role:'Sales Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'None'},
-      {id:'U013', companyId:'C_COO1', email:'k.somsak@nethp.co.th', name:'Kamala Somsak', role:'QA Liaison', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
-      {id:'U014', companyId:'C_COO1', email:'f.bounma@nethp.co.th', name:'Fon Bounma', role:'Finance/Wallet Admin', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'None'},
-      {id:'U015', companyId:'C_COO1', email:'admin@nethp.co.th', name:'Coop Admin', role:'Sys Admin', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'Limited'},
-      {id:'U016', companyId:'C_COO2', email:'m.surin@cto.co.th', name:'Malee Surin', role:'Sales Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
-      {id:'U017', companyId:'C_COO2', email:'u.kanya@cto.co.th', name:'Ubon Kanya', role:'QA Liaison', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'None'},
-      {id:'U018', companyId:'C_COO2', email:'v.chinda@cto.co.th', name:'Vimala Chinda', role:'Finance/Wallet Admin', status:'Suspended', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
-      {id:'U019', companyId:'C_COO2', email:'admin@cto.co.th', name:'Readonly Admin', role:'Sys Admin', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'Limited'},
-      {id:'U020', companyId:'C_IMP', email:'l.admin@euasian.com', name:'Limited Admin', role:'Sys Admin', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'Limited'},
-      {id:'U021', companyId:'C_IMP', email:'l.vanderberg@euasian.com', name:'Lars van der Berg', role:'Logistics Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
-      {id:'U022', companyId:'C_COO1', email:'w.transport@nethp.co.th', name:'Wichai Sompong', role:'Logistics Coordinator', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'None'},
-      {id:'U023', companyId:'C_COO2', email:'s.logistics@cto.co.th', name:'Siriporn Thanakit', role:'Logistics Coordinator', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
-      {id:'U024', companyId:'C_PRO2', email:'manager@siamcoconut.co.th', name:'Suda P.', role:'Export Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
-      {id:'U025', companyId:'C_IMP', email:'c.moreau@euasian.com', name:'Chloe Moreau', role:'Logistics Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'None'}
-    ],
-    roles: {
-      Importer: ['Procurement Manager','QA Manager','Logistics Manager','Finance/Wallet Admin','Sys Admin'],
-      Processor: ['Export Manager','Sales/Account Manager','Production Manager','Quality Manager','Logistics Manager','Finance/Wallet Admin','Sys Admin'],
-      Coop: ['Sales Manager','QA Liaison','Logistics Coordinator','Finance/Wallet Admin','Sys Admin']
-    },
-    companyDocuments: [
-      {id:'DOC001', companyId:'C_IMP', name:'EORI Registration Certificate', category:'Regulatory', type:'EORI', fileHash:'abc123def456', uploadedBy:'U002', uploadedAt:now(), expiresAt: new Date(Date.now()+86400000*730).toISOString(), status:'Valid', tags:['EU-Required', 'Import-Essential']},
-      {id:'DOC002', companyId:'C_IMP', name:'Import License 2025', category:'Regulatory', type:'Import License', fileHash:'f7a2b3c4d5e6', uploadedBy:'U002', uploadedAt:now(), expiresAt: new Date(Date.now()+86400000*365).toISOString(), status:'Valid'},
-      {id:'DOC003', companyId:'C_IMP', name:'Cargo Insurance Policy', category:'Operational', type:'Insurance', fileHash:'g1h2i3j4k5l6', uploadedBy:'U021', uploadedAt:now(), expiresAt: new Date(Date.now()+86400000*180).toISOString(), status:'Valid'},
-      {id:'DOC004', companyId:'C_PRO', name:'GMP Certificate', category:'Quality & Safety', type:'GMP', fileHash:'m7n8o9p0q1r2', uploadedBy:'U007', uploadedAt:now(), expiresAt: new Date(Date.now()+86400000*25).toISOString(), status:'Expiring Soon'},
-      {id:'DOC005', companyId:'C_PRO', name:'HACCP Plan 2025', category:'Quality & Safety', type:'HACCP', fileHash:'s3t4u5v6w7x8', uploadedBy:'U007', uploadedAt:now(), expiresAt: new Date(Date.now()+86400000*180).toISOString(), status:'Valid'},
-      {id:'DOC006', companyId:'C_PRO', name:'Establishment Approval Cert', category:'Regulatory', type:'Establishment Approval', fileHash:'y9z0a1b2c3d4', uploadedBy:'U007', uploadedAt:now(), expiresAt: new Date(Date.now()+86400000*365).toISOString(), status:'Valid'},
-      {id:'DOC007', companyId:'C_COO1', name:'Organic Certificate', category:'Sustainability', type:'Organic', fileHash:'e5f6g7h8i9j0', uploadedBy:'U013', uploadedAt:now(), expiresAt: new Date(Date.now()+86400000*120).toISOString(), status:'Valid'},
-      {id:'DOC008', companyId:'C_COO1', name:'Global GAP Certificate', category:'Sustainability', type:'Global GAP', fileHash:'k1l2m3n4o5p6', uploadedBy:'U013', uploadedAt:now(), expiresAt: new Date(Date.now()+86400000*200).toISOString(), status:'Valid'},
-      {id:'DOC009', companyId:'C_COO2', name:'Organic Certificate', category:'Sustainability', type:'Organic', fileHash:'q7r8s9t0u1v2', uploadedBy:'U017', uploadedAt:now(), expiresAt: new Date(Date.now()-86400000*30).toISOString(), status:'Expired'}
-    ],
-    documentCategories: {
-      'Regulatory': ['EORI', 'TRACES', 'Establishment Approval', 'Import License'],
-      'Quality & Safety': ['GMP', 'HACCP', 'ISO9001', 'ISO22000'],
-      'Sustainability': ['Organic', 'FairTrade', 'Global GAP', 'Rainforest Alliance'],
-      'Operational': ['Insurance', 'Bill of Lading', 'Commercial Invoice', 'Certificate of Origin'],
-      'Product-Specific': ['Test Results', 'Specifications', 'Nutritional Analysis', 'Allergen Declaration']
-    },
-    certs: [
-      {companyId:'C_IMP', type:'EORI', expiresAt: new Date(Date.now()+86400000*365).toISOString()},
-      {companyId:'C_IMP', type:'ISO9001', expiresAt: new Date(Date.now()+86400000*180).toISOString()},
-      {companyId:'C_PRO', type:'GMP', expiresAt: new Date(Date.now()+86400000*25).toISOString()},
-      {companyId:'C_PRO', type:'HACCP', expiresAt: new Date(Date.now()+86400000*180).toISOString()},
-      {companyId:'C_COO1', type:'Organic', expiresAt: new Date(Date.now()+86400000*120).toISOString()},
-      {companyId:'C_COO1', type:'FairTrade', expiresAt: new Date(Date.now()+86400000*90).toISOString()},
-      {companyId:'C_COO2', type:'Organic', expiresAt: new Date(Date.now()-86400000*30).toISOString()},
-      {companyId:'C_COO2', type:'FairTrade', expiresAt: new Date(Date.now()+86400000*15).toISOString()}
-    ],
-    wallets: [
-      {companyId:'C_IMP', balance:3200, ledger:[]},
-      {companyId:'C_PRO', balance:2800, ledger:[]},
-      {companyId:'C_PRO2', balance:1500, ledger:[]},
-      {companyId:'C_COO1', balance:1200, ledger:[]},
-      {companyId:'C_COO2', balance:950, ledger:[]}
-    ],
-    invitations: [],
-    partners: [
-      {id:'E1', aId:'C_IMP', bId:'C_PRO', status:'Accepted', directionForA:'Supplier', source:'invitation', createdAt: now()},
-      {id:'E2', aId:'C_PRO', bId:'C_COO1', status:'Accepted', directionForA:'Supplier', source:'invitation', createdAt: now()},
-      {id:'E3', aId:'C_PRO', bId:'C_COO2', status:'Accepted', directionForA:'Supplier', source:'invitation', createdAt: now()},
-      {id:'E4', aId:'C_IMP', bId:'C_PRO2', status:'Accepted', directionForA:'Supplier', source:'invitation', createdAt: now()},
-      {id:'E5', aId:'C_PRO2', bId:'C_COO2', status:'Accepted', directionForA:'Supplier', source:'invitation', createdAt: now()},
-    ],
-    labels: [],
-    awards: [],
-    walletAuditLog: [],
-    auditLog: [],
-    securityEvents: [],
-    pos: [
-      // Chain 1 - Sweet Thai Chili Sauce
-      { id:'P1001', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Sweet Thai Chili Sauce 12x300ml', qty:1200, price:1.7}], total:2040, status:'Open', labelStatus:'Requested', rewards:{organic:1000}, docs:[], thread:[ {author:'C_IMP:Procurement Manager', msg:'New PO for Q4. Must be fully Organic compliant as per our agreement. Please also adhere to standard EU labeling requirements.', ts:now()} ], shipments:[], trace:{}, createdAt: now() },
-      { id:'P2001', parentPoId: 'P1001', buyerId:'C_PRO', supplierId:'C_COO1', currency:'THB', items:[{name:'Fresh Thai Chilies (kg)', qty:400, price:85}], total:34000, status:'Open', labelStatus:'Not Required', rewards:{organic:400}, docs:[], thread:[{author:'C_PRO:Procurement Manager', msg:'Sourcing chilies for PO P1001. Please confirm organic certificate is valid for this lot.', ts:now()}], shipments:[], trace:{}, createdAt: now() },
-      { id:'P2002', parentPoId: 'P1001', buyerId:'C_PRO', supplierId:'C_COO2', currency:'THB', items:[{name:'Organic Spice Blend (kg)', qty:50, price:150}], total:7500, status:'Open', labelStatus:'Not Required', rewards:{organic:100}, docs:[], thread:[{author:'C_PRO:Procurement Manager', msg:'Sourcing spice blend for PO P1001. Your organic cert for spices has expired, please upload a new one before we can approve.', ts:now()}], shipments:[], trace:{}, createdAt: now() },
-      
-      // Chain 2 - Tom Yum Paste
-      { id:'P1002', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Tom Yum Paste 24x200g', qty:800, price:2.2}], total:1760, status:'Open', labelStatus:'Requested', rewards:{}, docs:[], thread:[{author:'C_IMP:QA Manager', msg:'PO for Tom Yum. Label must clearly state all allergens as per EU regulation 1169/2011.', ts:now()}], shipments:[], trace:{}, createdAt: now() },
-      { id:'P2003', parentPoId: 'P1002', buyerId:'C_PRO', supplierId:'C_COO1', currency:'THB', items:[{name:'Fresh Lemongrass (kg)', qty:300, price:42}], total:12600, status:'Open', labelStatus:'Not Required', rewards:{}, docs:[], thread:[{author:'C_PRO:Procurement Manager', msg:'Standard order for lemongrass for PO P1002.', ts:now()}], shipments:[], trace:{}, createdAt: now() },
-      { id:'P2004', parentPoId: 'P1002', buyerId:'C_PRO', supplierId:'C_COO2', currency:'THB', items:[{name:'Kaffir Lime Leaves (kg)', qty:100, price:120}], total:12000, status:'Open', labelStatus:'Not Required', rewards:{}, docs:[], thread:[{author:'C_PRO:Procurement Manager', msg:'Standard order for lime leaves for PO P1002.', ts:now()}], shipments:[], trace:{}, createdAt: now() },
+  // Predicate used by nav/tab renderers
 
-      // Chain 3 - Coconut Products
-      { id:'P1003', buyerId:'C_IMP', supplierId:'C_PRO2', currency:'EUR', items:[{name:'Coconut Milk 24x400ml', qty:1000, price:1.5}], total:1500, status:'Open', labelStatus:'Accepted', rewards:{}, docs:[], thread:[{author:'C_IMP:Procurement Manager', msg:'Standard Coconut Milk order.', ts:now()}], shipments:[], trace:{}, createdAt: now() },
-      { id:'P2005', parentPoId: 'P1003', buyerId:'C_PRO2', supplierId:'C_COO2', currency:'THB', items:[{name:'Fresh Coconuts (units)', qty:2000, price:20}], total:40000, status:'Open', labelStatus:'Not Required', rewards:{}, docs:[], thread:[{author:'C_PRO2:Procurement Manager', msg:'Sourcing coconuts for PO P1003.', ts:now()}], shipments:[], trace:{}, createdAt: now() }
-    ]
-  };
+  function isTabAllowed(tabLabel){
+    const ctx = _vpCurrentContext();
+    const ct = canonCompanyType(ctx.companyType);
+    const rr = canonRoleName(ctx.role);
+    if(!ct || !rr) return false; // strict: hide if unknown
+    const allowed = allowedTabsFor(ct, rr);
+    if(allowed.size===0) return false;
+    const cid = canonTabId(tabLabel);
+    const allowedIds = new Set(Array.from(allowed).map(canonTabId));
+    return allowedIds.has(cid);
+  }
 
-  
-let state = load() || seed;
-
-// ---------- VeriPura Demo Augmentation V2 ----------
-function augmentDemoV2(){
-  if(state._augV2) return;
-  const ensureCompany = (id, name, type, city)=>{
-    if(!state.companies.find(c=>c.id===id)){
-      state.companies.push({id, name, type, city});
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+    function toast(msg, kind='ok'){
+      const el = document.createElement('div');
+      el.className = 'toast ' + (kind==='warn'?'warn':kind==='err'?'err':'ok');
+      el.textContent = msg;
+      document.body.appendChild(el);
+      setTimeout(()=>{ el.remove(); }, 2600);
     }
-  };
-  const ensurePartner = (aId,bId,status='Accepted',directionForA='Supplier',source='invitation')=>{
-    const a = Math.min(aId, bId);
-    const b = Math.max(aId, bId);
-    if(!state.partners.find(p=>(p.aId===a && p.bId===b))){
-      state.partners.push({id:'E'+Math.random().toString(36).slice(2,8), aId:a, bId:b, status, directionForA, source, createdAt: now()});
+    function save(){ localStorage.setItem('vp', JSON.stringify(state)); }
+    function load(){
+      try{
+        const raw = localStorage.getItem('vp');
+        if(!raw) return null;
+        return JSON.parse(raw);
+      }catch(e){ return null; }
     }
-  };
-  const ensurePO = (po)=>{
-    if(!state.pos.find(p=>p.id===po.id)){
-      if(!po.total && po.items && po.items.length){
-        po.total = po.items.reduce((s,it)=> s + Number(it.qty||0)*Number(it.price||0), 0);
+    function deepClone(x){ return JSON.parse(JSON.stringify(x)); }
+
+    // ---------- Missing Functions (Fixed) ----------
+    function now() {
+      return new Date().toISOString().slice(0, 16).replace('T', ' ');
+    }
+
+    function shortId(prefix='P') {
+      return prefix + Math.random().toString(36).slice(2, 8).toUpperCase();
+    }
+
+    async function hashDataURL(dataUrl) {
+      try {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(dataUrl);
+        let hash = 0;
+        for (let i = 0; i < data.length; i++) {
+          const char = data[i];
+          hash = ((hash << 5) - hash) + char;
+          hash = hash & hash;
+        }
+        return Math.abs(hash).toString(16).slice(0, 8);
+      } catch (e) {
+        return Math.random().toString(36).slice(2, 10);
       }
-      po.docs = po.docs || [];
-      po.thread = po.thread || [];
-      po.shipments = po.shipments || [];
-      po.labelStatus = po.labelStatus || 'Requested';
-      po.createdAt = po.createdAt || now();
-      state.pos.push(po);
     }
-  };
-  ensureCompany('C_PRO3','Phuket Organic Coconut Cream Co.','Processor','Phuket');
-  ensureCompany('C_PRO4','NoodleCup Foods Co., Ltd.','Processor','Ayutthaya');
-  ensureCompany('C_PRO5','OceanBlue Tuna Canners','Processor','Samut Sakhon');
-  ensureCompany('C_PRO6','Royal Bangkok Processing','Processor','Bangkok');
-  ensureCompany('C_PRO7','Thai Heritage Foods','Processor','Phuket');
-  ensureCompany('C_IMP2','EU Gourmet Imports','Importer','Rotterdam');
-  ensureCompany('C_IMP_US','US Pacific Importers','Importer','Los Angeles');
-  ensureCompany('C_IMP_CN','Shanghai Food Imports','Importer','Shanghai');
-  ensureCompany('C_SUP1','Isaan Organic Cooperative','Coop','Udon Thani');
-  ensureCompany('C_SUP2','Mekong Garlic Farmers Union','Coop','Chiang Rai');
-  ensureCompany('C_SUP4','Chiang Mai Lemongrass Collective','Coop','Chiang Mai');
-  
-  ['C_PRO2','C_PRO3','C_PRO4','C_PRO5','C_PRO6','C_PRO7'].forEach(pid=> ensurePartner('C_IMP', pid, 'Accepted','Supplier','invitation'));
-  ['C_IMP2','C_IMP_US','C_IMP_CN'].forEach(iid=> ensurePartner('C_PRO', iid, 'Accepted','Customer','invitation'));
-  ['C_SUP1','C_SUP2','C_SUP4'].forEach(sid=> ensurePartner('C_PRO', sid, 'Accepted','Supplier','invitation'));
 
-  state._augV2 = true;
-  save();
-}
-augmentDemoV2();
-// ---------- End Augmentation ----------
+    // ---------- Seeding ----------
+    const seed = {
+      companies: [
+        {id:'C_IMP', name:'EU Asian Importers', type:'Importer', city:'Amsterdam'},
+        {id:'C_PRO', name:'Bangkok Chili Co., Ltd.', type:'Processor', city:'Bangkok'},
+        {id:'C_COO1', name:'NE Thai Herb Producer', type:'Coop', city:'Udon Thani'},
+        {id:'C_COO2', name:'Central Thai Organic', type:'Coop', city:'Ayutthaya'},
+      ],
+      logisticsProviders: [
+        {id:'LOG_TH1', name:'Thai Express Logistics', region:'Thailand', city:'Bangkok', specialty:'Ground Freight - Regular', services:['domestic_ground','port_transfer']},
+        {id:'LOG_TH2', name:'Bangkok Cold Chain Services', region:'Thailand', city:'Bangkok', specialty:'Ground Freight - Refrigerated', services:['refrigerated_ground','cold_storage']},
+        {id:'LOG_TH3', name:'Siam Ocean Freight Lines', region:'Thailand', city:'Laem Chabang', specialty:'Ocean Freight', services:['ocean_freight','container_shipping']},
+        {id:'LOG_TH4', name:'Mekong Transport Solutions', region:'Thailand', city:'Chiang Mai', specialty:'Ground Freight - Regular', services:['domestic_ground','rural_delivery']},
+        {id:'LOG_TH5', name:'Thai Refrigerated Express', region:'Thailand', city:'Surat Thani', specialty:'Ground Freight - Refrigerated', services:['refrigerated_ground','fresh_transport']},
+        {id:'LOG_EU1', name:'Rotterdam Port Logistics', region:'EU', city:'Rotterdam', specialty:'Ocean Freight', services:['ocean_freight','port_operations','container_handling']},
+        {id:'LOG_EU2', name:'EuroFreight Solutions', region:'EU', city:'Hamburg', specialty:'Ground Freight - Regular', services:['eu_ground','distribution','warehousing']},
+        {id:'LOG_EU3', name:'Antwerp Cold Storage Transport', region:'EU', city:'Antwerp', specialty:'Ground Freight - Refrigerated', services:['refrigerated_ground','cold_storage','eu_distribution']},
+        {id:'LOG_EU4', name:'Amsterdam Logistics Hub', region:'EU', city:'Amsterdam', specialty:'Ground Freight - Regular', services:['eu_ground','last_mile','distribution']},
+        {id:'LOG_EU5', name:'North Sea Freight Services', region:'EU', city:'Hamburg', specialty:'Ocean Freight', services:['ocean_freight','short_sea','feeder_services']},
+        {id:'LOG_EU6', name:'Rotterdam Refrigerated Transport', region:'EU', city:'Rotterdam', specialty:'Ground Freight - Refrigerated', services:['refrigerated_ground','cold_chain','eu_distribution']}
+      ],
+      users: [
+        {id:'U001', companyId:'C_IMP', email:'j.anderson@euasian.com', name:'James Anderson', role:'Procurement Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
+        {id:'U002', companyId:'C_IMP', email:'m.schmidt@euasian.com', name:'Maria Schmidt', role:'QA / Label Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'None'},
+        {id:'U003', companyId:'C_IMP', email:'r.patel@euasian.com', name:'Raj Patel', role:'Finance / Wallet Admin', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
+        {id:'U004', companyId:'C_IMP', email:'admin@euasian.com', name:'System Admin', role:'Sys Admin', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'Super'},
+        {id:'U005', companyId:'C_IMP', email:'s.dupont@euasian.com', name:'Sophie Dupont', role:'Procurement Manager', status:'Suspended', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'None'},
+        {id:'U006', companyId:'C_PRO', email:'s.tanaka@bkc.co.th', name:'Satoshi Tanaka', role:'Export Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
+        {id:'U007', companyId:'C_PRO', email:'a.wong@bkc.co.th', name:'Anong Wong', role:'Quality Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
+        {id:'U008', companyId:'C_PRO', email:'c.somchai@bkc.co.th', name:'Chai Somchai', role:'Logistics Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'None'},
+        {id:'U009', companyId:'C_PRO', email:'p.chen@bkc.co.th', name:'Priya Chen', role:'Finance / Wallet Admin', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
+        {id:'U010', companyId:'C_PRO', email:'admin@bkc.co.th', name:'Processor Admin', role:'Sys Admin', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'Standard'},
+        {id:'U011', companyId:'C_PRO', email:'t.nguyen@bkc.co.th', name:'Tuan Nguyen', role:'Production Manager', status:'Suspended', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'None'},
+        {id:'U012', companyId:'C_COO1', email:'n.pranee@nethp.co.th', name:'Niran Pranee', role:'Sales Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'None'},
+        {id:'U013', companyId:'C_COO1', email:'k.somsak@nethp.co.th', name:'Kamala Somsak', role:'QA Liaison', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
+        {id:'U014', companyId:'C_COO1', email:'f.bounma@nethp.co.th', name:'Fon Bounma', role:'Finance / Wallet Admin', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'None'},
+        {id:'U015', companyId:'C_COO1', email:'admin@nethp.co.th', name:'Coop Admin', role:'Sys Admin', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'Limited'},
+        {id:'U016', companyId:'C_COO2', email:'m.surin@cto.co.th', name:'Malee Surin', role:'Sales Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
+        {id:'U017', companyId:'C_COO2', email:'u.kanya@cto.co.th', name:'Ubon Kanya', role:'QA Liaison', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'None'},
+        {id:'U018', companyId:'C_COO2', email:'v.chinda@cto.co.th', name:'Vimala Chinda', role:'Finance / Wallet Admin', status:'Suspended', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
+        {id:'U019', companyId:'C_COO2', email:'admin@cto.co.th', name:'Readonly Admin', role:'Sys Admin', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'Limited'},
+        {id:'U020', companyId:'C_IMP', email:'l.admin@euasian.com', name:'Limited Admin', role:'Sys Admin', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'Limited'},
+        {id:'U021', companyId:'C_IMP', email:'l.vanderberg@euasian.com', name:'Lars van der Berg', role:'Logistics Coordinator', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'},
+        {id:'U022', companyId:'C_COO1', email:'w.transport@nethp.co.th', name:'Wichai Sompong', role:'Logistics Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:false, adminLevel:'None'},
+        {id:'U023', companyId:'C_COO2', email:'s.logistics@cto.co.th', name:'Siriporn Thanakit', role:'Logistics Manager', status:'Active', lastLogin:now(), createdAt:now(), mfaEnabled:true, adminLevel:'None'}
+      ],
+      roles: {
+        Importer: ['Procurement Manager','QA / Label Manager','Logistics Coordinator','Finance / Wallet Admin','Sys Admin'],
+        Processor: ['Export Manager', 'Account Manager', 'Production Manager', 'Quality Manager','Compliance Manager', 'Logistics Manager','Finance / Wallet Admin','Sys Admin'],
+        Coop: ['Sales Manager','QA Liaison','Operations Manager','Logistics Manager','Finance / Wallet Admin','Sys Admin']
+      },
+      companyDocuments: [
+        {id:'DOC001', companyId:'C_IMP', name:'EORI Registration Certificate', category:'Regulatory', type:'EORI', fileHash:'abc123def456', uploadedBy:'U002', uploadedAt:now(), expiresAt: new Date(Date.now()+86400000*730).toISOString(), status:'Valid', tags:['EU-Required', 'Import-Essential']},
+        {id:'DOC002', companyId:'C_IMP', name:'Import License 2025', category:'Regulatory', type:'Import License', fileHash:'f7a2b3c4d5e6', uploadedBy:'U002', uploadedAt:now(), expiresAt: new Date(Date.now()+86400000*365).toISOString(), status:'Valid'},
+        {id:'DOC003', companyId:'C_IMP', name:'Cargo Insurance Policy', category:'Operational', type:'Insurance', fileHash:'g1h2i3j4k5l6', uploadedBy:'U021', uploadedAt:now(), expiresAt: new Date(Date.now()+86400000*180).toISOString(), status:'Valid'},
+        {id:'DOC004', companyId:'C_PRO', name:'GMP Certificate', category:'Quality & Safety', type:'GMP', fileHash:'m7n8o9p0q1r2', uploadedBy:'U007', uploadedAt:now(), expiresAt: new Date(Date.now()+86400000*25).toISOString(), status:'Expiring Soon'},
+        {id:'DOC005', companyId:'C_PRO', name:'HACCP Plan 2025', category:'Quality & Safety', type:'HACCP', fileHash:'s3t4u5v6w7x8', uploadedBy:'U007', uploadedAt:now(), expiresAt: new Date(Date.now()+86400000*180).toISOString(), status:'Valid'},
+        {id:'DOC006', companyId:'C_PRO', name:'Establishment Approval Cert', category:'Regulatory', type:'Establishment Approval', fileHash:'y9z0a1b2c3d4', uploadedBy:'U007', uploadedAt:now(), expiresAt: new Date(Date.now()+86400000*365).toISOString(), status:'Valid'},
+        {id:'DOC007', companyId:'C_COO1', name:'Organic Certificate', category:'Sustainability', type:'Organic', fileHash:'e5f6g7h8i9j0', uploadedBy:'U013', uploadedAt:now(), expiresAt: new Date(Date.now()+86400000*120).toISOString(), status:'Valid'},
+        {id:'DOC008', companyId:'C_COO1', name:'Global GAP Certificate', category:'Sustainability', type:'Global GAP', fileHash:'k1l2m3n4o5p6', uploadedBy:'U013', uploadedAt:now(), expiresAt: new Date(Date.now()+86400000*200).toISOString(), status:'Valid'},
+        {id:'DOC009', companyId:'C_COO2', name:'Organic Certificate', category:'Sustainability', type:'Organic', fileHash:'q7r8s9t0u1v2', uploadedBy:'U017', uploadedAt:now(), expiresAt: new Date(Date.now()-86400000*30).toISOString(), status:'Expired'}
+      ],
+      documentCategories: {
+        'Regulatory': ['EORI', 'TRACES', 'Establishment Approval', 'Import License'],
+        'Quality & Safety': ['GMP', 'HACCP', 'ISO9001', 'ISO22000'],
+        'Sustainability': ['Organic', 'FairTrade', 'Global GAP', 'Rainforest Alliance'],
+        'Operational': ['Insurance', 'Bill of Lading', 'Commercial Invoice', 'Certificate of Origin'],
+        'Product-Specific': ['Test Results', 'Specifications', 'Nutritional Analysis', 'Allergen Declaration']
+      },
+      certs: [
+        {companyId:'C_IMP', type:'EORI', expiresAt: new Date(Date.now()+86400000*365).toISOString()},
+        {companyId:'C_IMP', type:'ISO9001', expiresAt: new Date(Date.now()+86400000*180).toISOString()},
+        {companyId:'C_PRO', type:'GMP', expiresAt: new Date(Date.now()+86400000*25).toISOString()},
+        {companyId:'C_PRO', type:'HACCP', expiresAt: new Date(Date.now()+86400000*180).toISOString()},
+        {companyId:'C_COO1', type:'Organic', expiresAt: new Date(Date.now()+86400000*120).toISOString()},
+        {companyId:'C_COO1', type:'FairTrade', expiresAt: new Date(Date.now()+86400000*90).toISOString()},
+        {companyId:'C_COO2', type:'Organic', expiresAt: new Date(Date.now()-86400000*30).toISOString()},
+        {companyId:'C_COO2', type:'FairTrade', expiresAt: new Date(Date.now()+86400000*15).toISOString()}
+      ],
+      wallets: [
+        {companyId:'C_IMP', balance:3200, ledger:[{ts:now(), kind:'Received', detail:'Initial VERI allocation', amount:3200}]},
+        {companyId:'C_PRO', balance:2800, ledger:[{ts:now(), kind:'Received', detail:'Initial VERI allocation', amount:2800}]},
+        {companyId:'C_COO1', balance:1200, ledger:[{ts:now(), kind:'Received', detail:'Initial VERI allocation', amount:1200}]},
+        {companyId:'C_COO2', balance:950, ledger:[{ts:now(), kind:'Received', detail:'Initial VERI allocation', amount:950}]}
+      ],
+      invitations: [
+        {id:'I1', fromCompanyId:'C_IMP', fromRole:'Procurement Manager', toCompanyId:'C_PRO', toType:'Processor', status:'Pending', createdAt: now()},
+        {id:'I2', fromCompanyId:'C_PRO', fromRole:'Account Manager', toCompanyId:'C_COO1', toType:'Coop', status:'Accepted', createdAt: now(), decidedAt: now()},
+        {id:'I3', fromCompanyId:'C_PRO', fromRole:'Account Manager', toCompanyId:'C_COO2', toType:'Coop', status:'Pending', createdAt: now()}
+      ],
+      partners: [
+        {id:'E1', aId:'C_IMP', bId:'C_PRO', status:'Accepted', directionForA:'Supplier', source:'invitation', createdAt: now()},
+        {id:'E2', aId:'C_PRO', bId:'C_COO1', status:'Accepted', directionForA:'Supplier', source:'invitation', createdAt: now()}
+      ],
+      labels: [
+        {poId:'P2003', status:'Accepted'}, {poId:'P1005', status:'Accepted'}, {poId:'P1007', status:'Accepted'}
+      ],
+      awards: [
+        {poId:'P1009', type:'organic', amount:1000, status:'Completed', awardedAt: now()}, {poId:'P1010', type:'fairTrade', amount:800, status:'Completed', awardedAt: now()}
+      ],
+      walletAuditLog: [],
+      auditLog: [],
+      securityEvents: [],
+      pos: [
+        { id:'P1001', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Sweet Thai Chili Sauce 12x300ml', qty:1200, price:1.7}], total:2040, status:'Open', labelStatus:'Requested', rewards:{organic:1000,fairTrade:1000,rainforest:1000}, docChecklist:[{name:'GMP', state:'Expiring Soon'}], docs:[], thread:[ {author:'C_IMP:Procurement Manager', msg:'Kickoff PO for Q4', ts:now()}, {author:'C_IMP:QA / Label Manager', msg:'Label requested: Standard labeling requirements with nutritional info', ts:now()} ], shipments:[], trace:{ lots:[{id:'LOT-A',qty:600},{id:'LOT-B',qty:600}], chain:['C_COO1','C_PRO','C_IMP'], geo:'16.07,102.67 → 13.75,100.50 → 52.37,4.90' }, createdAt: now(), labelHistory: [ {id:'LBL_REQ001', action:'requested', actor:'C_IMP:QA / Label Manager', timestamp:now(), version:1, requirements:'Standard labeling requirements with nutritional info'} ] },
+        { id:'P2001', buyerId:'C_PRO', supplierId:'C_COO1', currency:'THB', items:[{name:'Fresh Lemongrass (kg)', qty:500, price:42}], total:21000, status:'Open', labelStatus:'Not Required', rewards:{organic:800,fairTrade:600}, docChecklist:[{name:'Organic', state:'Valid'}], docs:[], thread:[{author:'C_PRO:Account Manager', msg:'Standard lemongrass order', ts:now()}], shipments:[], trace:{ lots:[{id:'LOT-A',qty:600},{id:'LOT-B',qty:600}], chain:['C_COO1','C_PRO','C_IMP'], geo:'16.07,102.67 → 13.75,100.50 → 52.37,4.90' }, createdAt: now() },
+        { id:'P1002', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Tom Yum Paste 24x200g', qty:800, price:2.2}], total:1760, status:'Approved', labelStatus:'Accepted', rewards:{organic:1200,fairTrade:800}, docChecklist:[{name:'GMP', state:'Expiring Soon'}, {name:'HACCP', state:'Valid'}], docs:[], thread:[ {author:'C_IMP:Procurement Manager', msg:'Approved tom yum paste order', ts:now()}, {author:'C_PRO:Account Manager', msg:'Thanks, will prepare shipment', ts:now()}, {author:'C_IMP:QA / Label Manager', msg:'Label requested: EU compliant labeling with allergen info', ts:now()}, {author:'C_PRO:Quality Manager', msg:'Label uploaded: Tom_Yum_Label_v2.pdf [a1b2c3d4]', ts:now()}, {author:'C_IMP:QA / Label Manager', msg:'Label accepted: Looks good, meets EU requirements', ts:now()} ], shipments:[], trace:{ lots:[{id:'LOT-A',qty:600},{id:'LOT-B',qty:600}], chain:['C_COO1','C_PRO','C_IMP'], geo:'16.07,102.67 → 13.75,100.50 → 52.37,4.90' }, createdAt: now(), labelHistory: [ {id:'LBL_REQ002', action:'requested', actor:'C_IMP:QA / Label Manager', timestamp:now(), version:1, requirements:'EU compliant labeling with allergen info'}, {id:'LBL_UPL002', action:'uploaded', actor:'C_PRO:Quality Manager', timestamp:now(), version:2, fileName:'Tom_Yum_Label_v2.pdf', fileHash:'a1b2c3d4', fileSize:2048576}, {id:'LBL_ACC002', action:'accepted', actor:'C_IMP:QA / Label Manager', timestamp:now(), version:3, comments:'Looks good, meets EU requirements'} ] },
+        { id:'P2002', buyerId:'C_PRO', supplierId:'C_COO2', currency:'THB', items:[{name:'Organic Thai Basil (kg)', qty:300, price:65}], total:19500, status:'Approved', labelStatus:'Not Required', rewards:{organic:1000,fairTrade:600}, docChecklist:[{name:'Organic', state:'Expired'}], docs:[], thread:[ {author:'C_PRO:Account Manager', msg:'Approved basil order', ts:now()}, {author:'C_COO2:Sales Manager', msg:'Will harvest fresh for you', ts:now()} ], shipments:[], trace:{ lots:[{id:'LOT-A',qty:600},{id:'LOT-B',qty:600}], chain:['C_COO1','C_PRO','C_IMP'], geo:'16.07,102.67 → 13.75,100.50 → 52.37,4.90' }, createdAt: now() },
+        { id:'P2003', buyerId:'C_PRO', supplierId:'C_COO1', currency:'THB', items:[{name:'Fresh Thai Chilies (kg)', qty:400, price:85}], total:34000, status:'ReadyToShip', labelStatus:'Not Required', rewards:{organic:1000,fairTrade:800}, docChecklist:[{name:'Organic', state:'Valid'}, {name:'FairTrade', state:'Valid'}], docs:[], thread:[ {author:'C_PRO:Account Manager', msg:'QA completed - PASS', ts:now()}, {author:'C_COO1:Sales Manager', msg:'Ready for pickup', ts:now()} ], shipments:[{id:'S1', qty:400, ts:now()}], trace:{ lots:[ {id:'L-CHILI-001', qty:240, source:'Primary Farm'}, {id:'L-CHILI-002', qty:100, source:'Secondary Farm'}, {id:'L-CHILI-003', qty:60, source:'Tertiary Farm'} ], chain:['Primary Farm','Secondary Farm','Tertiary Farm','C_COO1','C_PRO'], geo:'15.87,100.99' }, createdAt: now() },
+        { id:'P1003', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Green Curry Paste 18x400g', qty:600, price:3.1}], total:1860, status:'Open', labelStatus:'Rejected', rewards:{organic:900,fairTrade:700}, docChecklist:[{name:'GMP', state:'Expiring Soon'}], docs:[], thread:[ {author:'C_PRO:Production Manager', msg:'Batch ready for production', ts:now()}, {author:'C_IMP:QA / Label Manager', msg:'Label requested: Green curry paste labeling with heat level indicator', ts:now()}, {author:'C_PRO:Quality Manager', msg:'Label uploaded: Green_Curry_Label_v1.pdf [x9y8z7w6]', ts:now()}, {author:'C_IMP:QA / Label Manager', msg:'Label rejected: Missing proper heat level warnings and ingredient allergen list format incorrect', ts:now()} ], shipments:[], trace:{ lots:[{id:'LOT-A',qty:600},{id:'LOT-B',qty:600}], chain:['C_COO1','C_PRO','C_IMP'], geo:'16.07,102.67 → 13.75,100.50 → 52.37,4.90' }, createdAt: now(), labelHistory: [ {id:'LBL_REQ003', action:'requested', actor:'C_IMP:QA / Label Manager', timestamp:now(), version:1, requirements:'Green curry paste labeling with heat level indicator'}, {id:'LBL_UPL003', action:'uploaded', actor:'C_PRO:Quality Manager', timestamp:now(), version:2, fileName:'Green_Curry_Label_v1.pdf', fileHash:'x9y8z7w6', fileSize:1536789}, {id:'LBL_REJ003', action:'rejected', actor:'C_IMP:QA / Label Manager', timestamp:now(), version:3, reason:'Missing proper heat level warnings and ingredient allergen list format incorrect', requiresResubmission:true} ] },
+        { id:'P1004', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Coconut Milk 24x400ml', qty:1000, price:1.5}], total:1500, status:'Shipped', labelStatus:'Accepted', rewards:{organic:800,fairTrade:600}, docChecklist:[{name:'GMP', state:'Expiring Soon'}, {name:'HACCP', state:'Valid'}], docs:[], thread:[ {author:'C_PRO:Logistics Manager', msg:'Shipped via Bangkok Port', ts:now()}, {author:'C_IMP:Procurement Manager', msg:'Tracking received', ts:now()}, {author:'C_IMP:QA / Label Manager', msg:'Label accepted: Perfect coconut milk labeling', ts:now()} ], shipments:[{id:'S1', qty:1000, ts:now(), carrier:'Siam Ocean Freight Lines', logisticsProvider: 'LOG_TH3', tracking:'TL2024001234'}], trace:{ lots:[ {id:'L-COCONUT-001', qty:600, source:'Southern Plantations'}, {id:'L-COCONUT-002', qty:250, source:'Central Farms'}, {id:'L-COCONUT-003', qty:150, source:'Northern Cooperatives'} ], chain:['Southern Plantations','Central Farms','Northern Cooperatives','C_PRO','C_IMP'], geo:'7.89,98.40' }, createdAt: now(), labelHistory: [ {id:'LBL_REQ004', action:'requested', actor:'C_IMP:QA / Label Manager', timestamp:now(), version:1, requirements:'Standard coconut milk labeling'}, {id:'LBL_UPL004', action:'uploaded', actor:'C_PRO:Quality Manager', timestamp:now(), version:2, fileName:'Coconut_Milk_Label.pdf', fileHash:'c0c0nut1', fileSize:1234567}, {id:'LBL_ACC004', action:'accepted', actor:'C_IMP:QA / Label Manager', timestamp:now(), version:3, comments:'Perfect coconut milk labeling'} ] },
+        { id:'P2004', buyerId:'C_PRO', supplierId:'C_COO2', currency:'THB', items:[{name:'Kaffir Lime Leaves (kg)', qty:150, price:120}], total:18000, status:'Shipped', labelStatus:'Not Required', rewards:{organic:600,fairTrade:400}, docChecklist:[{name:'Organic', state:'Expired'}], docs:[], thread:[{author:'C_COO2:Sales Manager', msg:'Shipped fresh lime leaves', ts:now()}], shipments:[{id:'S1', qty:150, ts:now(), carrier: 'Local Transport', logisticsProvider: 'LOG_TH4'}], trace:{ lots:[ {id:'L-LIME-001', qty:90, source:'Main Grove'}, {id:'L-LIME-002', qty:37, source:'Hill Grove'}, {id:'L-LIME-003', qty:23, source:'Valley Grove'} ], chain:['Main Grove','Hill Grove','Valley Grove','C_COO2','C_PRO'], geo:'14.22,100.88' }, createdAt: now() },
+        { id:'P1005', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Pad Thai Sauce 15x350ml', qty:900, price:2.8}], total:2520, status:'Open', labelStatus:'Pending Review', rewards:{organic:1100,fairTrade:900}, docChecklist:[{name:'GMP', state:'Expiring Soon'}], docs:[], thread:[ {author:'C_IMP:QA / Label Manager', msg:'Label requested: Pad Thai sauce with authentic recipe indicator', ts:now()}, {author:'C_PRO:Quality Manager', msg:'Label uploaded: Pad_Thai_Sauce_Label.pdf [pt123456]', ts:now()} ], shipments:[], trace:{ lots:[{id:'LOT-A',qty:600},{id:'LOT-B',qty:600}], chain:['C_COO1','C_PRO','C_IMP'], geo:'16.07,102.67 → 13.75,100.50 → 52.37,4.90' }, createdAt: now(), labelHistory: [ {id:'LBL_REQ005', action:'requested', actor:'C_IMP:QA / Label Manager', timestamp:now(), version:1, requirements:'Pad Thai sauce with authentic recipe indicator'}, {id:'LBL_UPL005', action:'uploaded', actor:'C_PRO:Quality Manager', timestamp:now(), version:2, fileName:'Pad_Thai_Sauce_Label.pdf', fileHash:'pt123456', fileSize:1987654} ] },
+        { id:'P1006', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Massaman Curry Paste 20x250g', qty:500, price:2.9}], total:1450, status:'Completed', labelStatus:'Accepted', rewards:{organic:800,fairTrade:600}, docChecklist:[{name:'GMP', state:'Expiring Soon'}, {name:'HACCP', state:'Valid'}], docs:[], thread:[ {author:'C_IMP:Finance / Wallet Admin', msg:'Payment completed - thank you!', ts:now()}, {author:'C_PRO:Account Manager', msg:'Pleasure doing business', ts:now()} ], shipments:[{id:'S1', qty:500, ts:now(), received:true, receivedAt:now(), completed:true, completedAt:now()}], trace:{ lots:[ {id:'L-MASSAMAN-001', qty:300, source:'Specialty Spice Farms'}, {id:'L-MASSAMAN-002', qty:125, source:'Premium Herb Gardens'}, {id:'L-MASSAMAN-003', qty:75, source:'Artisan Producers'} ], chain:['Specialty Spice Farms','Premium Herb Gardens','Artisan Producers','C_PRO','C_IMP'], geo:'13.76,100.50' }, createdAt: now(), labelHistory: [ {id:'LBL_REQ006', action:'requested', actor:'C_IMP:QA / Label Manager', timestamp:now(), version:1, requirements:'Massaman curry paste premium labeling'}, {id:'LBL_UPL006', action:'uploaded', actor:'C_PRO:Quality Manager', timestamp:now(), version:2, fileName:'Massaman_Label_Premium.pdf', fileHash:'mass123', fileSize:2456789}, {id:'LBL_ACC006', action:'accepted', actor:'C_IMP:QA / Label Manager', timestamp:now(), version:3, comments:'Excellent premium labeling'} ] },
+        { id:'P1007', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Fish Sauce 12x700ml', qty:400, price:4.2}], total:1680, status:'Completed', labelStatus:'Accepted', rewards:{organic:600,fairTrade:500}, docChecklist:[{name:'GMP', state:'Expiring Soon'}], docs:[], thread:[ {author:'C_IMP:Procurement Manager', msg:'Excellent quality as always', ts:now()}, {author:'C_PRO:Quality Manager', msg:'Traditional fermentation process maintained', ts:now()} ], shipments:[{id:'S1', qty:400, ts:now(), received:true, receivedAt:now(), completed:true, completedAt:now()}], trace:{ lots:[ {id:'L-FISH-001', qty:240, source:'Coastal Fisheries'}, {id:'L-FISH-002', qty:100, source:'Island Producers'}, {id:'L-FISH-003', qty:60, source:'Artisan Fishers'} ], chain:['Coastal Fisheries','Island Producers','Artisan Fishers','C_PRO','C_IMP'], geo:'12.55,101.02' }, createdAt: now(), labelHistory: [ {id:'LBL_REQ007', action:'requested', actor:'C_IMP:QA / Label Manager', timestamp:now(), version:1, requirements:'Traditional fish sauce labeling'}, {id:'LBL_UPL007', action:'uploaded', actor:'C_PRO:Quality Manager', timestamp:now(), version:2, fileName:'Fish_Sauce_Traditional.pdf', fileHash:'fish789', fileSize:1876543}, {id:'LBL_ACC007', action:'accepted', actor:'C_IMP:QA / Label Manager', timestamp:now(), version:3, comments:'Perfect traditional labeling'} ] },
+        { id:'P2005', buyerId:'C_PRO', supplierId:'C_COO1', currency:'THB', items:[{name:'Fresh Galangal (kg)', qty:200, price:95}], total:19000, status:'Open', labelStatus:'Not Required', rewards:{organic:700,fairTrade:500}, docChecklist:[{name:'Organic', state:'Valid'}], docs:[], thread:[{author:'C_PRO:Account Manager', msg:'Need galangal for new product line', ts:now()}], shipments:[], trace:{ lots:[{id:'LOT-A',qty:600},{id:'LOT-B',qty:600}], chain:['C_COO1','C_PRO','C_IMP'], geo:'16.07,102.67 → 13.75,100.50 → 52.37,4.90' }, createdAt: now() },
+        { id:'P1008', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Red Curry Paste 16x400g', qty:700, price:3.0}], total:2100, status:'Approved', labelStatus:'Accepted', rewards:{organic:1000,fairTrade:800}, docChecklist:[{name:'GMP', state:'Expiring Soon'}, {name:'HACCP', state:'Valid'}], docs:[], thread:[{author:'C_IMP:Procurement Manager', msg:'Red curry approved for production', ts:now()}], shipments:[], trace:{ lots:[{id:'LOT-A',qty:600},{id:'LOT-B',qty:600}], chain:['C_COO1','C_PRO','C_IMP'], geo:'16.07,102.67 → 13.75,100.50 → 52.37,4.90' }, createdAt: now(), labelHistory: [ {id:'LBL_REQ008', action:'requested', actor:'C_IMP:QA / Label Manager', timestamp:now(), version:1, requirements:'Red curry paste with heat level warnings'}, {id:'LBL_UPL008', action:'uploaded', actor:'C_PRO:Quality Manager', timestamp:now(), version:2, fileName:'Red_Curry_Label_v3.pdf', fileHash:'red456', fileSize:1654321}, {id:'LBL_ACC008', action:'accepted', actor:'C_IMP:QA / Label Manager', timestamp:now(), version:3, comments:'Great heat level indicators'} ] }
+      ]
+    };
+
+
+  let state = load() || seed;
+
+  // ---------- VeriPura Demo Augmentation V2 ----------
+  function augmentDemoV2(){
+    if(state._augV2) return;
+    const ensureCompany = (id, name, type, city)=>{
+      if(!state.companies.find(c=>c.id===id)){
+        state.companies.push({id, name, type, city});
+      }
+    };
+    const ensurePartner = (aId,bId,status='Accepted',directionForA='Supplier',source='invitation')=>{
+      const a = Math.min(aId, bId);
+      const b = Math.max(aId, bId);
+      if(!state.partners.find(p=>(p.aId===a && p.bId===b))){
+        state.partners.push({id:'E'+Math.random().toString(36).slice(2,8), aId:a, bId:b, status, directionForA, source, createdAt: now()});
+      }
+    };
+    const ensurePO = (po)=>{
+      if(!state.pos.find(p=>p.id===po.id)){
+        if(!po.total && po.items && po.items.length){
+          po.total = po.items.reduce((s,it)=> s + Number(it.qty||0)*Number(it.price||0), 0);
+        }
+        po.docs = po.docs || [];
+        po.thread = po.thread || [];
+        po.shipments = po.shipments || [];
+        po.labelStatus = po.labelStatus || 'Requested';
+        po.createdAt = po.createdAt || now();
+        state.pos.push(po);
+      }
+    };
+    ensureCompany('C_PRO2','Siam Coconut Milk Ltd.','Processor','Surat Thani');
+    ensureCompany('C_PRO3','Phuket Organic Coconut Cream Co.','Processor','Phuket');
+    ensureCompany('C_PRO4','NoodleCup Foods Co., Ltd.','Processor','Ayutthaya');
+    ensureCompany('C_PRO5','OceanBlue Tuna Canners','Processor','Samut Sakhon');
+    ensureCompany('C_PRO6','Royal Bangkok Processing','Processor','Bangkok');
+    ensureCompany('C_PRO7','Thai Heritage Foods','Processor','Phuket');
+    ensureCompany('C_IMP2','EU Gourmet Imports','Importer','Rotterdam');
+    ensureCompany('C_IMP_US','US Pacific Importers','Importer','Los Angeles');
+    ensureCompany('C_IMP_CN','Shanghai Food Imports','Importer','Shanghai');
+    ensureCompany('C_SUP1','Isaan Organic Cooperative','Coop','Udon Thani');
+    ensureCompany('C_SUP2','Mekong Garlic Farmers Union','Coop','Chiang Rai');
+    ensureCompany('C_SUP4','Chiang Mai Lemongrass Collective','Coop','Chiang Mai');
+
+    ['C_PRO2','C_PRO3','C_PRO4','C_PRO5','C_PRO6','C_PRO7'].forEach(pid=> ensurePartner('C_IMP', pid, 'Accepted','Supplier','invitation'));
+    ['C_IMP2','C_IMP_US','C_IMP_CN'].forEach(iid=> ensurePartner('C_PRO', iid, 'Accepted','Customer','invitation'));
+    ['C_SUP1','C_SUP2','C_SUP4'].forEach(sid=> ensurePartner('C_PRO', sid, 'Accepted','Supplier','invitation'));
+    const importerPOs = [
+      {id:'P1101', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Sweet Chili Sauce 24x200ml', qty:800, price:1.2}], status:'Open', thread:[{author:'C_IMP:Procurement Manager', msg:'Kickoff — confirm delivery window', ts:now()}]},
+      {id:'P1102', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Green Curry Paste 24x200g', qty:600, price:1.5}], status:'Open', thread:[{author:'C_PRO:Export Manager', msg:'Pricing ack; label pending', ts:now()}]},
+      {id:'P1103', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Panang Curry Paste 12x300g', qty:500, price:1.9}], status:'Approved', labelStatus:'Accepted', thread:[{author:'C_IMP:Compliance Manager', msg:'Label accepted', ts:now()}]},
+      {id:'P1104', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Sriracha 12x500ml', qty:700, price:1.8}], status:'Approved', labelStatus:'Accepted', thread:[{author:'C_PRO:Export Manager', msg:'Preparing shipment', ts:now()}]},
+      {id:'P1105', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Tom Yum Paste 24x200g', qty:900, price:1.4}], status:'ReadyToShip', labelStatus:'Accepted', shipments:[{id:'S1', qty:300, ts:now()}], thread:[{author:'C_PRO:Logistics Manager', msg:'First partial shipment created', ts:now()}]},
+      {id:'P1106', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Sweet Basil Leaves (jar)', qty:450, price:2.1}], status:'Shipped', labelStatus:'Accepted', shipments:[{id:'S1', qty:450, ts:now()}], thread:[{author:'C_PRO:Logistics Manager', msg:'Shipped today via Maersk', ts:now()}]},
+      {id:'P1107', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Coconut Milk 24x400ml', qty:1200, price:0.95}], status:'Open', labelStatus:'Requested', thread:[{author:'C_IMP:QA / Label Manager', msg:'Please upload coconut label v1', ts:now()}]},
+      {id:'P1108', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Chili Oil 12x250ml', qty:400, price:2.2}], status:'Open', labelStatus:'Requested', thread:[{author:'C_PRO:Export Manager', msg:'Will share label draft', ts:now()}]},
+      {id:'P1109', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Pad Thai Sauce 12x500ml', qty:500, price:2.0}], status:'Approved', labelStatus:'Accepted', thread:[{author:'C_IMP:Procurement Manager', msg:'Approved — proceed to ship', ts:now()}]},
+      {id:'P1110', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Yellow Curry Paste 20x250g', qty:650, price:1.6}], status:'ReadyToShip', labelStatus:'Accepted', shipments:[{id:'S1', qty:200, ts:now()}], thread:[{author:'C_PRO:Production Manager', msg:'Batch staged', ts:now()}]},
+      {id:'P1111', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Fish Sauce 24x300ml', qty:1000, price:0.8}], status:'Shipped', labelStatus:'Accepted', shipments:[{id:'S1', qty:1000, ts:now()}], thread:[{author:'C_PRO:Logistics Manager', msg:'Container sealed', ts:now()}]},
+      {id:'P1112', buyerId:'C_IMP', supplierId:'C_PRO', currency:'EUR', items:[{name:'Tamarind Paste 12x500g', qty:300, price:2.5}], status:'Completed', labelStatus:'Accepted', shipments:[{id:'S1', qty:300, ts:now(), received:true, receivedAt:now(), completed:true, completedAt:now()}], thread:[{author:'C_IMP:Logistics Coordinator', msg:'Received in warehouse', ts:now()}]},
+    ];
+    importerPOs.forEach(ensurePO);
+
+    const supplierItems = [
+      ['Fresh Red Chili (kg)',120,70], ['Dried Chili (kg)',90,85], ['Garlic (kg)',200,40], ['Lemongrass (kg)',180,35], ['Kaffir Lime Leaves (kg)',160,120], ['Galangal (kg)',150,55],
+    ];
+    ['C_COO1','C_COO2'].forEach((sid, idx)=>{
+      for(let n=1;n<=6;n++){
+        const [name, qty, price] = supplierItems[(n-1)%supplierItems.length];
+        const poId = (sid==='C_COO1' ? 'P210' : 'P220') + n;
+        const th = [];
+        if(n<=4){ th.push({author: sid+':Sales Manager', msg:'Quote ready / available qty confirmed', ts: now()}); }
+        ensurePO({ id: poId, buyerId:'C_PRO', supplierId:sid, currency:'THB', items:[{name, qty, price}], status: (n%3===0?'Approved': (n%2===0?'Open':'ReadyToShip')), labelStatus: (n%2===0?'Requested':'Not Required'), rewards:{organic:600,fairTrade:400}, docs:[], thread: th });
+      }
+    });
+
+    state._augV2 = true;
+    save();
+  }
+  augmentDemoV2();
+  // ---------- End Augmentation ----------
 
 
   // ---------- Relationship policy ----------
   function companyById(id){ return state.companies.find(c=>c.id===id); }
   function userById(id){ return (state.users || []).find(u=>u.id===id); }
   function typeOf(id){ const c = companyById(id); return c?c.type:null; }
-  
+
   function allowedCounterpartiesFor(companyId){
     const t = typeOf(companyId);
     const others = state.companies.filter(c=>c.id!==companyId);
@@ -731,7 +1201,7 @@ augmentDemoV2();
   }
   function renderLogisticsProviderDropdown(companyId, selectId = 'logisticsProvider') {
     const providers = getAvailableLogisticsProviders(companyId);
-    const options = providers.map(p => 
+    const options = providers.map(p =>
       `<option value="${p.id}">${escapeHTML(p.name)} - ${escapeHTML(p.specialty)} (${escapeHTML(p.city)})</option>`
     ).join('');
     return `<select id="${selectId}" class="input">${options}</select>`;
@@ -745,12 +1215,12 @@ augmentDemoV2();
     if(!session.userId) return null;
     return userById(session.userId);
   }
-  
+
   function getAdminLevel(){
     const u = getCurrentUser();
     return u ? u.adminLevel : 'None';
   }
-  
+
   function isAtLeast(level){
     const myLevel = getAdminLevel();
     const levels = { 'None':0, 'Limited':1, 'Standard':2, 'Super':3 };
@@ -786,32 +1256,46 @@ augmentDemoV2();
               <div class="row">
                 <button id="loginBtn" class="btn btn-brand">Sign in</button>
                 <button id="seedReset" class="btn">Reset Data</button>
-              
-  <select id="themeSelect" class="input" style="min-width:160px" title="Theme">
-    <option value="dark">Dark</option>
-    <option value="light-warm">Warm Light</option>
-  </select>
-</div>
-              <button id="startTourBtn" class="btn btn-primary" style="width:100%; margin-top: 1rem;">Start Demo Tour</button>
+              </div>
+              <div class="row" style="gap:.5rem;margin-top:.5rem;align-items:center;flex-wrap:wrap;">
+                <label class="label small" for="vpThemeSelect" style="margin:0 .25rem 0 0;">Theme</label>
+                <select id="vpThemeSelect" class="input" style="max-width:160px;">
+                  <option value="dark">Dark</option>
+                  <option value="light">Light</option>
+                  <option value="light-warm">Warm Light</option>
+                  <option value="emerald">Emerald</option>
+                </select>
+                <label class="label small" for="vpDensitySelect" style="margin:0 .25rem 0 .75rem;">Density</label>
+                <select id="vpDensitySelect" class="input" style="max-width:140px;">
+                  <option value="comfort">Comfort</option>
+                  <option value="compact">Compact</option>
+                </select>
+              </div>
             </div>
           </div>
-          <div class="card" style="grid-column:2 / span 1">
-            <div class="section-title">Quick tips</div>
-            <ul class="small">
-              <li><b>Log In:</b> Choose a Company and User, then use password "123".</li>
-              <li><b>Take the Tour:</b> Click "Start Demo Tour" for a guided walkthrough of the main workflow.</li>
-              <li><b>Explore Roles:</b> Log in as a 'Procurement Manager', 'Logistics Manager', or 'Sys Admin' to see different permissions and views.</li>
-              <li><b>Navigate:</b> Use the sidebar tabs (Dashboard, POs, Documents, Wallet) to explore features.</li>
-              <li><b>Start Over:</b> Click "Reset Data" at any time to return to the original state.</li>
-            </ul>
-          </div>
+
+          <div class="card" id="loginPromo" style="grid-column:2 / span 1"><div class="section-title">Import trust in seconds</div><ul class="promo-list">
+              <li><strong>$40B</strong> lost annually to food fraud; <strong>600M</strong> people fall ill and <strong>420K</strong> die from unsafe food.</li>
+              <li><strong>30+ documents</strong> per EU shipment — errors cause costly delays and rework.</li>
+              <li><strong>VeriPura</strong> automates document checks with AI and locks the chain of custody on blockchain.</li>
+              <li><strong>Traceback in ~2 seconds</strong> with on-chain records (vs. 7 days with paper trails).</li>
+            </ul><p class="promo-cta">Replace paper friction with digital trust.</p></div>
+
         </div>
+          </div>
+</div>
+
       </div>
     `;
     const companySel = $('#loginCompany');
     state.companies.forEach(c=>{
       const o = document.createElement('option'); o.value=c.id; o.textContent = `${c.name} — ${c.type}`; companySel.appendChild(o);
     });
+
+    // NOTE: Call these helpers AFTER the loop
+    try{ if (window.__wireLoginAppearance) window.__wireLoginAppearance(); } catch(e){}
+    try{ if (window.__wireLoginPromo) window.__wireLoginPromo(); } catch(e){}
+
     function populateUsers(){
       const companyId = companySel.value;
       const users = (state.users || []).filter(u=>u.companyId === companyId);
@@ -841,25 +1325,24 @@ augmentDemoV2();
         save();
         return;
       }
-      
+
       session.companyId = user.companyId;
       session.role = user.role;
       session.userId = user.id;
       user.lastLogin = now();
       saveSession();
-      save(); 
-      try{ renderLogin(); }catch(e){}
+      save();
+      renderApp();
     });
     $('#seedReset').addEventListener('click', ()=>{
-      localStorage.removeItem('vp'); 
+      localStorage.removeItem('vp');
       state = deepClone(seed);
-      save(); 
+      save();
       toast('Demo data reset.');
       location.reload();
     });
-    $('#startTourBtn').addEventListener('click', startTour);
   }
-  
+
   function ensureSessionCompany(){
     const me = companyById(session.companyId);
     if(!me || !getCurrentUser()){
@@ -873,17 +1356,9 @@ augmentDemoV2();
   }
 
   function saveSession(){ localStorage.setItem('vp_session', JSON.stringify(session)); }
-  function loadSession(opts={}){ 
-  try{ 
-    const raw = localStorage.getItem('vp_session') || localStorage.getItem('session');
-    const s = raw ? JSON.parse(raw) : { companyId: null, role: null, userId: null };
-    if (opts.forceLogin === true) return {}; 
-    return s; 
-  }catch(e){ 
-    console.error('Session load error:', e);
-    return { companyId: null, role: null, userId: null }; 
-  } 
-}
+  function loadSession(){ try{ const s=JSON.parse(localStorage.getItem('vp_session')); if(s&&s.companyId&&s.role&&s.userId){session=s;} }catch(e){} }
+
+
   const MAX_FILE_SIZE = 5 * 1024 * 1024;
   let isProcessing = false;
 
@@ -928,6 +1403,7 @@ augmentDemoV2();
     const currentUser = getCurrentUser();
     if (!currentUser) return renderLogin();
     const showAdminTab = session.role === 'Sys Admin';
+    if (typeof _applyBodyContext==='function') _applyBodyContext();
 
     app.innerHTML = `
       <div class="layout">
@@ -945,9 +1421,9 @@ augmentDemoV2();
             <button data-tab="pos">Purchase Orders</button>
             <button data-tab="documents">Documents</button>
             <button data-tab="wallet">Wallet</button>
-            <button data-tab="partners" class="${(session.role==='Logistics Manager'||session.role==='Logistics Coordinator')?'hidden':''}">Business Partners</button>
-            <button data-tab="invitations" class="${canSeeInvitations()? '' : 'hidden'}">Invitations</button>
-            <button data-tab="sysadmin" class="${showAdminTab ? '' : 'hidden'}">Sys Admin</button>
+            <button data-tab="partners">Business Partners</button>
+            <button data-tab="invitations">Invitations</button>
+            <button data-tab="sysadmin">Sys Admin</button>
             <button id="logout" class="btn" style="margin-top:.5rem">Log out</button>
           </div>
         </aside>
@@ -961,28 +1437,35 @@ augmentDemoV2();
           <section id="tab-sysadmin" class="hidden"></section>
         </main>
       </div>
+      <div id="modal" class="hidden"></div>
     `;
+
+    // Ensure nav is wired even after re-render
+    wireNav();
+
+    // Enforce allowed nav visibility
+    if(window._vpEnforceNavVisibility){ window._vpEnforceNavVisibility(); }
+
+    // If nothing active, pick a sensible default based on role
+    try{
+      const nav = document.getElementById('nav');
+      const hasActive = nav && nav.querySelector('button.active');
+      if(!hasActive){
+        const ctx = _vpCurrentContext ? _vpCurrentContext() : null;
+        const role = ctx ? canonRoleName(ctx.role) : null;
+        const def = (role === 'Sys Admin') ? 'sysadmin' : 'dashboard';
+        const target = nav && nav.querySelector(`[data-tab="${def}"]`);
+        if(target) target.click();
+      }
+    }catch(e){}
     $('#logout').addEventListener('click', ()=>{ localStorage.removeItem('vp_session'); session={companyId:null,role:null,userId:null}; renderLogin(); });
-    $$('#nav button[data-tab]').forEach(btn=>{
-      btn.addEventListener('click', (e)=>{
-        $$('#nav button').forEach(b=>b.classList.remove('active'));
-        e.currentTarget.classList.add('active');
-        const tab = e.currentTarget.dataset.tab;
-        ['dashboard','pos','documents','wallet','partners','invitations','sysadmin'].forEach(t=>{
-          const el = document.getElementById('tab-'+t);
-          if(el) el.classList.toggle('hidden', t!==tab);
-        });
-        if(tab==='dashboard') renderDashboard();
-        if(tab==='pos') renderPOs();
-        if(tab==='documents') renderDocuments();
-        if(tab==='wallet') renderWallet();
-        if(tab==='partners') renderPartners();
-        if(tab==='invitations') renderInvitations();
-        if(tab==='sysadmin') renderSysAdmin();
-      });
-    });
-    renderDashboard();
-    renderControlPanel();
+
+    if (canonRoleName && canonRoleName(session.role) === 'Sys Admin') {
+      const sysBtn = document.querySelector('#nav [data-tab="sysadmin"]');
+      if (sysBtn) sysBtn.click();
+    } else {
+      renderDashboard();
+    }
   }
 
   function renderDashboard(){
@@ -994,10 +1477,6 @@ augmentDemoV2();
     const received = myPOs.filter(p=>p.status==='Received').length;
     const completed = myPOs.filter(p=>p.status==='Completed').length;
     const _me_guard = ensureSessionCompany(); if(!_me_guard) return; $('#tab-dashboard').innerHTML = `
-      <div class="row-between">
-        <div class="section-title">Dashboard</div>
-        <button id="startTourBtn" class="btn btn-primary">Start Demo Tour</button>
-      </div>
       <div class="grid cols-3">
         <div class="card metric"><div class="h">Open POs</div><div class="v">${open}</div></div>
         <div class="card metric"><div class="h">Ready to Ship</div><div class="v">${rts}</div></div>
@@ -1022,7 +1501,6 @@ augmentDemoV2();
         </div>
       </div>
     `;
-     $('#startTourBtn').addEventListener('click', startTour);
   }
 
   function directionFor(viewerId, otherId){
@@ -1041,7 +1519,7 @@ augmentDemoV2();
     const meType = typeOf(session.companyId);
     const r = session.role;
     if(meType==='Importer') return r==='Procurement Manager';
-    if(meType==='Processor') return r==='Export Manager' || r==='Sales/Account Manager';
+    if(meType==='Processor') return r==='Export Manager' || r==='Account Manager';
     if(meType==='Coop') return r==='Sales Manager';
     return false;
   }
@@ -1050,7 +1528,7 @@ augmentDemoV2();
     if(r === 'Logistics Manager' || r === 'Logistics Coordinator') return false;
     return canInviteFromRole();
   }
-  
+
   function wirePartnerDelegatedHandlers(){
     const container = document.getElementById('tab-partners');
     if(!container || container.dataset.wired==='1') return;
@@ -1112,13 +1590,13 @@ augmentDemoV2();
       btn.addEventListener('click',()=>{
         const targetId = btn.dataset.id;
         if(!isAllowedPair(session.companyId, targetId)){ toast('Not a permitted relationship.','err'); return; }
-        if(!canInviteFromRole()){ toast('Your role cannot send invitations.','err'); }
+        if(!canInviteFromRole()){ toast('Your role cannot send invitations.','err'); return; }
         const inv = {id: 'I'+Math.random().toString(36).slice(2,8), fromCompanyId:session.companyId, fromRole:session.role, toCompanyId:targetId, toType:typeOf(targetId), status:'Pending', createdAt:now()};
         state.invitations.push(inv); save(); toast('Invitation sent.'); renderPartners();
       });
     });
   }
-  
+
   function wireInvitationDelegatedHandlers(){
     const container = document.getElementById('tab-invitations');
     if(!container || container.dataset.wired==='1') return;
@@ -1235,7 +1713,7 @@ augmentDemoV2();
     $('#walletChip').textContent = 'VERI: ' + getBalance(session.companyId);
     const db = $('#dashBalance'); if(db) db.textContent = getBalance(session.companyId);
   }
-  function canWalletAdmin(){ return session.role==='Finance/Wallet Admin'; }
+  function canWalletAdmin(){ return session.role==='Finance / Wallet Admin'; }
   function renderWallet(){
     const me = companyById(session.companyId);
     const w = walletFor(me.id);
@@ -1327,7 +1805,7 @@ augmentDemoV2();
     }
   }
 
-  
+
   function validatePOData(items, currency){
     if(!items || !items.length) throw new Error('At least one item required');
     items.forEach((it, idx)=>{
@@ -1344,20 +1822,20 @@ augmentDemoV2();
   function roleCanSendPO(){
     const t = typeOf(session.companyId);
     if(t==='Importer' && session.role==='Procurement Manager') return true;
-    if(t==='Processor' && (session.role==='Sales/Account Manager' || session.role==='Procurement Manager')) return true;
+    if(t==='Processor' && (session.role==='Export Manager' || session.role==='Account Manager')) return true;
     return false;
   }
   function roleCanApprove(po){
     const meType = typeOf(session.companyId);
     if(po.buyerId===session.companyId){
       if(meType==='Importer' && session.role==='Procurement Manager') return true;
-      if(meType==='Processor' && session.role==='Sales/Account Manager') return true;
+      if(meType==='Processor' && session.role==='Account Manager') return true;
     }
     return false;
   }
   function roleCanRequestQA(){
     const t = typeOf(session.companyId);
-    return (t==='Importer' && session.role==='QA Manager') || (t==='Processor' && session.role==='Quality Manager');
+    return (t==='Importer' && session.role==='QA / Label Manager') || (t==='Processor' && session.role==='Quality Manager');
   }
   function roleCanRecordQA(){
     const t = typeOf(session.companyId);
@@ -1367,15 +1845,15 @@ augmentDemoV2();
     const meType = typeOf(session.companyId);
     if(po.supplierId===session.companyId){
       if(meType==='Processor' && (session.role==='Logistics Manager' || session.role==='Production Manager')) return true;
-      if(meType==='Coop' && (session.role==='Sales Manager' || session.role==='Logistics Coordinator')) return true;
+      if(meType==='Coop' && (session.role==='Sales Manager' || session.role==='Operations Manager')) return true;
     }
     if(po.buyerId===session.companyId){
-      if(meType==='Importer' && session.role==='Logistics Manager') return true;
+      if(meType==='Importer' && session.role==='Logistics Coordinator') return true;
       if(meType==='Processor' && session.role==='Logistics Manager') return true;
     }
     return false;
   }
-  
+
   function shouldShowLogisticsCoordination(po) {
     if(session.role === 'Logistics Manager' || session.role === 'Logistics Coordinator') {
       return po.buyerId === session.companyId || po.supplierId === session.companyId;
@@ -1384,8 +1862,8 @@ augmentDemoV2();
   }
 
   function wirePOCardActions(){
-    const container = $('#tab-pos');
-    if(!container) return;
+    const container = document.getElementById('tab-pos');
+    if (!container) return;
 
     if (container.dataset.wired === '1') return;
     container.dataset.wired = '1';
@@ -1393,7 +1871,7 @@ augmentDemoV2();
     container.addEventListener('click', (ev) => {
       const btn = ev.target.closest('button');
       if(!btn) return;
-      
+
       const id = btn.dataset.id;
       if(!id) return;
 
@@ -1422,7 +1900,7 @@ augmentDemoV2();
         return;
       }
       if(cl.contains('btn-ship')){
-        if(po.labelStatus!=='Accepted' && typeOf(session.companyId) !== 'Logistics') return toast('Blocking: Label not accepted. Use Override + note to proceed.','err');
+        if(po.labelStatus!=='Accepted') return toast('Blocking: Label not accepted. Use Override + note to proceed.','err');
         const qty = po.items.reduce((a,it)=>a+Number(it.qty||0),0);
         const logisticsProvider = $(`#logistics-${id}`)?.value;
         const carrier = $(`#carrier-${id}`)?.value || 'TBD';
@@ -1430,21 +1908,21 @@ augmentDemoV2();
         const provider = state.logisticsProviders?.find(p => p.id === logisticsProvider);
         const providerName = provider ? provider.name : 'Not specified';
         const shipment = {
-          id: 'S'+(po.shipments.length+1), 
-          qty, 
+          id: 'S'+(po.shipments.length+1),
+          qty,
           ts: now(),
           logisticsProvider: logisticsProvider,
           logisticsProviderName: providerName,
           carrier: carrier,
           tracking: tracking
         };
-        po.shipments = po.shipments || []; 
+        po.shipments = po.shipments || [];
         po.shipments.push(shipment);
         if(po.status==='Open' || po.status==='Approved') po.status='ReadyToShip';
         const logisticsMsg = `Shipment created: ${qty} units via ${escapeHTML(providerName)} (${escapeHTML(carrier)})${tracking ? `, Tracking: ${escapeHTML(tracking)}` : ''}`;
         po.thread.push({author: session.companyId+':'+session.role, msg: logisticsMsg, ts: now()});
-        save(); 
-        toast('Shipment with logistics coordination added.'); 
+        save();
+        toast('Shipment with logistics coordination added.');
         renderPOs();
         return;
       }
@@ -1517,7 +1995,7 @@ augmentDemoV2();
       </div>
     `;
     $$('#posReceivedList .accordion-head, #posIssuedList .accordion-head').forEach(h=>h.addEventListener('click',()=>{
-      const body = h.nextElementSibling; 
+      const body = h.nextElementSibling;
       body.style.display = body.style.display==='block' ? 'none' : 'block';
     }));
     wirePOCardActions();
@@ -1527,7 +2005,9 @@ augmentDemoV2();
   }
 
   function poCard(p){
-    const buyer = companyById(p.buyerId), supplier = companyById(p.supplierId);
+
+  ensureTrace(p);
+const buyer = companyById(p.buyerId), supplier = companyById(p.supplierId);
     const alerts = [];
     if(p.labelStatus!=='Accepted') alerts.push('<span class="tag block">Label not accepted</span>');
     if(p.rewards && (p.rewards.organic || p.rewards.fairTrade || p.rewards.rainforest)) alerts.push('<span class="tag warn">Compliance awards pending</span>');
@@ -1541,11 +2021,11 @@ augmentDemoV2();
     const traceVisible = ['ReadyToShip','Shipped','Received','Completed'].includes(p.status);
     const logisticsDropdown = roleCanAddShipment(p) ? renderLogisticsProviderDropdown(session.companyId, `logistics-${p.id}`) : '';
     return `
-      <div class="accordion-item" data-po-id="${p.id}">
+      <div class="accordion-item">
         <div class="accordion-head">
           <div class="row" style="gap:.75rem">
             <span class="pill">${escapeHTML(p.id)}</span>
-            <strong>${escapeHTML(buyer.name)} → ${escapeHTML(supplier.name)}</strong>
+            <strong>${escapeHTML(counterpartyName(p))}</strong>
             <span class="muted small">Status: ${escapeHTML(p.status)}</span>
             <span class="small">Label: <span class="tag ${p.labelStatus==='Accepted'?'ok':p.labelStatus==='Pending Review'?'warn':p.labelStatus==='Requested'?'warn':'block'}">${p.labelStatus}</span></span>
             <span class="small">Total: <strong>${p.total.toFixed(2)} ${escapeHTML(p.currency)}</strong></span>
@@ -1610,10 +2090,12 @@ augmentDemoV2();
     `;
   }
   function renderTrace(p){
-    let html = '';
+
+  ensureTrace(p);
+let html = '';
     if(p.trace && Object.keys(p.trace).length > 0) {
       const t = p.trace;
-      const lots = (t.lots||[]).map(l=>`<span class="pill">${escapeHTML(l.id)}: ${l.qty}kg (${escapeHTML(l.farmLocation || l.source)})</span>`).join(' ');
+      const lots = (t.lots||[]).map(l=>`<span class="pill">${escapeHTML(l.id)}: ${l.qty}</span>`).join(' ');
       const chain = (t.chain||[]).join(' → ');
       html += `<div class="col">
         <div><strong>Supply Chain:</strong> ${escapeHTML(chain||'—')}</div>
@@ -1627,9 +2109,9 @@ augmentDemoV2();
         const logisticsInfo = s.logisticsProviderName ? `via <strong>${escapeHTML(s.logisticsProviderName)}</strong>` : '';
         const carrierInfo = s.carrier ? `Carrier: <span class="kbd">${escapeHTML(s.carrier)}</span>` : '';
         const trackingInfo = s.tracking ? `Tracking: <span class="kbd">${escapeHTML(s.tracking)}</span>` : '';
-        
+
         const details = [carrierInfo, trackingInfo].filter(Boolean).join(' | ');
-        
+
         html += `<div class="small">
           <strong>Shipment ${idx + 1}:</strong> ${s.qty} units ${logisticsInfo}
           ${details ? `<br><span class="muted">${details}</span>` : ''}
@@ -1648,7 +2130,7 @@ augmentDemoV2();
     modal.classList.remove('hidden');
     modal.innerHTML = `
       <div class="card" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45);z-index:999">
-        <div class="card" style="max-width:860px;width:95%;max-height:88vh;overflow:auto;background:var(--panel);color:var(--text);border:1px solid var(--border)">
+        <div class="card" style="max-width:860px;width:95%;max-height:88vh;overflow:auto;background:#0d1217">
           <div class="row-between">
             <div class="section-title">Send New PO</div>
             <button id="xModal" class="btn">Close</button>
@@ -1758,7 +2240,7 @@ augmentDemoV2();
       const msg = $('#poMsg').value.trim();
       const po = {
         id, buyerId: session.companyId, supplierId, currency, items, total, status:'Open', labelStatus:'Requested',
-        rewards, docChecklist:[], docs:[], thread:[], shipments:[], trace:{}, createdAt: now()
+        rewards, docChecklist:[], docs:[], thread:[], shipments:[], trace:{ lots:[{id:'LOT-A',qty:600},{id:'LOT-B',qty:600}], chain:['C_COO1','C_PRO','C_IMP'], geo:'16.07,102.67 → 13.75,100.50 → 52.37,4.90' }, createdAt: now()
       };
       if(msg) po.thread.push({author: session.companyId+':'+session.role, msg: escapeHTML(msg), ts: now()});
       save();
@@ -1782,8 +2264,7 @@ augmentDemoV2();
 
   function wireSysAdminHandlers(){
     const container = document.getElementById('tab-sysadmin');
-    if(!container || container.dataset.wired === '1') return;
-    container.dataset.wired = '1';
+    if(!container) return;
     container.addEventListener('click', (ev) => {
         const target = ev.target;
         if(target.matches('.admin-tabs button')){
@@ -1802,8 +2283,8 @@ augmentDemoV2();
           const userId = target.dataset.id;
           const targetUser = userById(userId);
           if(!targetUser || targetUser.companyId !== session.companyId) {
-            toast('Cannot edit users from other companies.', 'err'); 
-             return;
+            toast('Cannot edit users from other companies.', 'err');
+              return;
           }
           openUserModal(userId);
         }
@@ -1812,8 +2293,8 @@ augmentDemoV2();
           const userId = target.dataset.id;
           const user = userById(userId);
           if(!user || user.companyId !== session.companyId) {
-            toast('Cannot modify users from other companies.', 'err'); 
-             return;
+            toast('Cannot modify users from other companies.', 'err');
+              return;
           }
           const oldStatus = user.status;
           const newStatus = oldStatus === 'Active' ? 'Suspended' : 'Active';
@@ -1821,7 +2302,7 @@ augmentDemoV2();
           addAuditLog('user_status_change', { targetUserId: user.id, targetUserEmail: user.email, from: oldStatus, to: newStatus });
           save();
           toast(`User ${newStatus.toLowerCase()}.`);
-          renderSysAdminUsers(); 
+          renderSysAdminUsers();
          }
         if(target.matches('#exportAuditBtn')){
           const companyAuditLog = state.auditLog.concat(state.walletAuditLog).filter(log => log.company === session.companyId);
@@ -1848,7 +2329,7 @@ augmentDemoV2();
         return;
     }
     wireSysAdminHandlers();
-    
+
     const users = state.users || [];
     const companyUsers = users.filter(u => u.companyId === session.companyId);
     const metrics = {
@@ -1894,59 +2375,66 @@ augmentDemoV2();
       <div id="admin-security" class="admin-content">
         <div class="section-title">Security Center</div>
         <div class="card">
-          <p>Password policies, MFA management, and security event monitoring would be configured here in a production system.</p>
-          <p class="muted small">This is a placeholder for the demo.</p>
+          <div class="row-between">
+            <div class="label">Recent Security Events</div>
+            <button class="btn btn-ok" onclick="exportTableCSV('#security-events-table', 'security-events.csv')">Export</button>
+          </div>
+          <table class="table small" id="security-events-table">
+            <thead><tr><th>When</th><th>Event</th><th>Actor</th><th>Detail</th></tr></thead>
+            <tbody>
+              <tr><td>2025-09-09 23:03</td><td>Failed login</td><td>Unknown</td><td>Invalid password for admin@example.com</td></tr>
+              <tr><td>2025-09-09 23:03</td><td>Password reset</td><td>System</td><td>Reset link issued to admin@example.com</td></tr>
+            </tbody>
+          </table>
+          <p class="muted small">Demo data for the Sys Admin role.</p>
         </div>
       </div>
       <div id="admin-interface" class="admin-content">
         <div class="section-title">Interface Management</div>
         <div class="card">
-          <p>API keys, webhooks, and other system integration settings would be managed here.</p>
-          <p class="muted small">This is a placeholder for the demo.</p>
+          <div class="row-between">
+            <div class="label">Interface Activity</div>
+            <button class="btn btn-ok" onclick="exportTableCSV('#interface-activity-table', 'interface-activity.csv')">Export</button>
+          </div>
+          <table class="table small" id="interface-activity-table">
+            <thead><tr><th>When</th><th>Action</th><th>Actor</th><th>Detail</th></tr></thead>
+            <tbody>
+              <tr><td>2025-09-09 23:04</td><td>Webhook delivery</td><td>System</td><td>PO.updated → https://hooks.veripura.dev/inbound</td></tr>
+              <tr><td>2025-09-09 23:04</td><td>API key created</td><td>Sys Admin</td><td>Key ID API-2C1A6F</td></tr>
+            </tbody>
+          </table>
+          <p class="muted small">Demo data for the Sys Admin role.</p>
         </div>
       </div>
+
       <div id="admin-audit" class="admin-content">
+        <div class="section-title">Audit & Compliance</div>
         <div class="grid cols-2">
           <div class="card">
             <div class="row-between">
-              <div class="section-title">Company Audit Log</div>
-              <button id="exportAuditBtn" class="btn">Export CSV</button>
+              <div class="label">Company Audit Log</div>
+              <button class="btn btn-ok" onclick="exportTableCSV('#company-audit-table','company-audit.csv')">Export</button>
             </div>
-            <div style="max-height: 400px; overflow-y: auto;">
-            <table class="table small">
+            <table class="table small" id="company-audit-table">
               <thead><tr><th>When</th><th>Actor</th><th>Action</th><th>Detail</th></tr></thead>
-              <tbody>${state.auditLog.concat(state.walletAuditLog).filter(log => log.company === session.companyId).sort((a,b)=>b.ts.localeCompare(a.ts)).map(log => `
-                <tr>
-                  <td>${escapeHTML(log.ts)}</td>
-                  <td>${escapeHTML(log.actor || log.company)}</td>
-                  <td>${escapeHTML(log.action)}</td>
-                  <td>${escapeHTML(JSON.stringify(log.changes || log.detail || log.targetUserEmail || log.poId || ''))}</td>
-                </tr>`).join('')}
+              <tbody>
+                <tr><td>2025-09-09 23:03</td><td>Sys Admin</td><td>User created</td><td>r.patel@euasian.com</td></tr>
+                <tr><td>2025-09-09 23:03</td><td>Sys Admin</td><td>Role changed</td><td>m.schmidt@euasian.com → QA / Label Manager</td></tr>
               </tbody>
             </table>
-            </div>
           </div>
           <div class="card">
             <div class="row-between">
-              <div class="section-title">Security Events Log</div>
-              <button id="exportSecurityBtn" class="btn">Export CSV</button>
+              <div class="label">Security Events Log</div>
+              <button class="btn btn-ok" onclick="exportTableCSV('#security-audit-table','security-audit.csv')">Export</button>
             </div>
-            <div style="max-height: 400px; overflow-y: auto;">
-            <table class="table small">
-              <thead><tr><th>When</th><th>Type</th><th>Reason</th><th>User</th></tr></thead>
-              <tbody>${(state.securityEvents || []).filter(log => {
-                const user = userById(log.userId);
-                return user && user.companyId === session.companyId;
-              }).sort((a,b)=>b.ts.localeCompare(a.ts)).map(log => `
-                <tr>
-                  <td>${escapeHTML(log.ts)}</td>
-                  <td>${escapeHTML(log.type)}</td>
-                  <td>${escapeHTML(log.reason)}</td>
-                  <td>${escapeHTML(log.email)}</td>
-                </tr>`).join('')}
+            <table class="table small" id="security-audit-table">
+              <thead><tr><th>When</th><th>Event</th><th>Actor</th><th>Detail</th></tr></thead>
+              <tbody>
+                <tr><td>2025-09-09 23:03</td><td>Failed login</td><td>Unknown</td><td>Invalid password for admin@example.com</td></tr>
+                <tr><td>2025-09-09 23:03</td><td>Password reset</td><td>System</td><td>Reset link issued to admin@example.com</td></tr>
               </tbody>
             </table>
-            </div>
           </div>
         </div>
       </div>
@@ -1960,7 +2448,7 @@ augmentDemoV2();
     const searchTerm = ($('#userSearch')?.value || '').toLowerCase();
     const statusFilter = $('#userStatusFilter')?.value || 'all';
     const roleFilter = $('#userRoleFilter')?.value || 'all';
-    
+
     let filteredUsers = (state.users || []).filter(u => {
       const sameCompany = u.companyId === session.companyId;
       const matchesSearch = u.name.toLowerCase().includes(searchTerm) || u.email.toLowerCase().includes(searchTerm);
@@ -1968,7 +2456,7 @@ augmentDemoV2();
       const matchesRole = roleFilter === 'all' || u.role === roleFilter;
       return sameCompany && matchesSearch && matchesStatus && matchesRole;
     });
-    
+
     const companyUsers = (state.users || []).filter(u => u.companyId === session.companyId);
     const allRoles = [...new Set(companyUsers.map(u => u.role))];
     container.innerHTML = `
@@ -2024,7 +2512,7 @@ augmentDemoV2();
     const adminLevelOptions = ['None', 'Limited', 'Standard', 'Super'].map(lvl => `<option value="${lvl}" ${user?.adminLevel === lvl ? 'selected':''}>${lvl}</option>`).join('');
     modal.innerHTML = `
       <div class="card" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45);z-index:999;">
-        <div class="card" style="width:500px;background:var(--panel);color:var(--text);border:1px solid var(--border)">
+        <div class="card" style="width:500px;background:#0d1217">
           <div class="row-between">
             <div class="section-title">${isEditing ? 'Edit User' : 'Add New User'}</div>
             <button id="xModal" class="btn">×</button>
@@ -2133,13 +2621,13 @@ augmentDemoV2();
       document.body.removeChild(link);
     }
   }
-  
+
   function canManageDocuments(){
-    const allowedRoles = ['QA Manager', 'Logistics Manager', 'Logistics Coordinator', 'Sys Admin', 'Quality Manager', 'QA Liaison'];
+    const allowedRoles = ['QA / Label Manager', 'Logistics Coordinator', 'Sys Admin'];
     return allowedRoles.includes(session.role);
   }
   function canViewDocuments(){
-    return true; 
+    return true;
   }
   function getDocumentStatus(doc){
     if (!doc.expiresAt) return 'Permanent';
@@ -2151,7 +2639,7 @@ augmentDemoV2();
   function getCompanyDocuments(companyId){
     return state.companyDocuments?.filter(doc => doc.companyId === companyId) || [];
   }
-  
+
   function fileToDataURL(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -2218,7 +2706,7 @@ augmentDemoV2();
     const me = companyById(session.companyId);
     const documents = getCompanyDocuments(me.id);
     const canManage = canManageDocuments();
-    
+
     const docsByCategory = {};
     if (state.documentCategories) {
         Object.keys(state.documentCategories).forEach(cat => {
@@ -2292,7 +2780,7 @@ augmentDemoV2();
     const categoryOptions = categories.map(cat => `<option value="${cat}">${cat}</option>`).join('');
     modal.innerHTML = `
       <div class="card" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45);z-index:999">
-        <div class="card" style="width:600px;background:var(--panel);color:var(--text);border:1px solid var(--border)">
+        <div class="card" style="width:600px;background:#0d1217">
           <div class="row-between">
             <div class="section-title">Upload Company Document</div>
             <button id="xModal" class="btn">×</button>
@@ -2322,7 +2810,7 @@ augmentDemoV2();
     $('#uploadBtn').addEventListener('click', handleDocumentUpload);
     updateDocumentTypes();
   }
-  
+
   function updateDocumentTypes() {
     const category = $('#docCategory').value;
     const types = state.documentCategories[category] || [];
@@ -2349,7 +2837,7 @@ augmentDemoV2();
         toast('Document Name is required.', 'warn');
         return;
     }
-    
+
     const uploadedDoc = await uploadCompanyDocument(file, metadata);
     if (uploadedDoc) {
         toast('Document uploaded successfully.', 'ok');
@@ -2376,7 +2864,7 @@ augmentDemoV2();
                 toast('Document content not available for viewing.', 'warn');
             }
         }
-        
+
         if (btn.classList.contains('btn-delete-doc')) {
             if (confirm('Are you sure you want to delete this document?')) {
                 const docIndex = state.companyDocuments.findIndex(d => d.id === docId);
@@ -2390,7 +2878,7 @@ augmentDemoV2();
                 }
             }
         }
-        
+
         if (btn.classList.contains('btn-attach-doc')) {
             openAttachToPOModal(docId);
         }
@@ -2401,7 +2889,7 @@ augmentDemoV2();
     const modal = $('#modal');
     modal.classList.remove('hidden');
     const myOpenPOs = state.pos.filter(p => (p.buyerId === session.companyId || p.supplierId === session.companyId) && p.status !== 'Completed');
-    
+
     if (myOpenPOs.length === 0) {
       toast('You have no open POs to attach this document to.', 'warn');
       modal.classList.add('hidden');
@@ -2409,10 +2897,10 @@ augmentDemoV2();
     }
 
     const poOptions = myOpenPOs.map(po => `<option value="${po.id}">PO ${po.id} (${po.items[0].name})</option>`).join('');
-    
+
     modal.innerHTML = `
       <div class="card" style="position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.45);z-index:999">
-        <div class="card" style="width:500px;background:var(--panel);color:var(--text);border:1px solid var(--border)">
+        <div class="card" style="width:500px;background:#0d1217">
           <div class="row-between">
             <div class="section-title">Attach Document to PO</div>
             <button id="xModal" class="btn">×</button>
@@ -2427,7 +2915,7 @@ augmentDemoV2();
         </div>
       </div>
     `;
-    
+
     $('#xModal').addEventListener('click', () => { modal.classList.add('hidden'); modal.innerHTML=''; });
     $('#confirmAttachBtn').addEventListener('click', () => {
       const poId = $('#poSelect').value;
@@ -2439,7 +2927,7 @@ augmentDemoV2();
       modal.innerHTML = '';
     });
   }
-  
+
   function attachDocumentToPO(docId, poId){
     const doc = state.companyDocuments?.find(d => d.id === docId);
     const po = state.pos.find(p => p.id === poId);
@@ -2450,7 +2938,7 @@ augmentDemoV2();
       toast(`Document is already attached to PO ${poId}`, 'warn');
       return;
     }
-    
+
     po.attachedDocs.push({
       docId: doc.id,
       name: doc.name,
@@ -2467,792 +2955,162 @@ augmentDemoV2();
     toast(`Document attached to PO ${poId}`);
   }
 
-  // ---------- DEMO CONDUCTOR ----------
-  let demoState = {
-    active: false,
-    currentStep: 0,
-    currentDay: 0,
-    panelVisible: false
-  };
-
-  function ensureModalClosed() {
-    const modal = $('#modal');
-    if (modal && !modal.classList.contains('hidden')) {
-      modal.classList.add('hidden');
-      modal.innerHTML = '';
-    }
+  // Always start with login screen
+  loadSession();
+  if (session.userId && session.companyId) {
+    renderApp();
+  } else {
+    renderLogin();
   }
 
-  const tourSteps = [
-    { targetElement: '#loginBtn', title: 'Welcome to VeriPura', content: 'This tour will guide you through a typical import-driven supply chain. Let\'s sign in as an Importer to begin.', position: 'right' },
-    { 
-      userId: 'U001', 
-      companyId: 'C_IMP', 
-      preAction: () => {
-        navigateToTab('pos');
-        setTimeout(() => {
-          const sendPOBtn = $('#btnNewPO');
-          if (sendPOBtn) {
-            sendPOBtn.click();
-          }
-        }, 300);
-      }, 
-      targetElement: '#poSupplier',
-      title: '1. Import Demand Creation', 
-      content: 'The importer creates a Purchase Order by filling out this form. Notice the compliance requirements (Organic rewards) and supplier selection - this drives the entire supply chain.', 
-      position: 'right' 
-    },
-    { 
-      userId: 'U006', 
-      companyId: 'C_PRO', 
-      title: '2. Processor Response', 
-      content: 'The Processor receives the order and can see all requirements. They must now source raw materials to fulfill this order, passing compliance requirements down the chain.', 
-      preAction: () => {
-        ensureModalClosed();
-        navigateToTab('pos');
-        setTimeout(() => {
-          const poAccordion = $('[data-po-id="P1001"] .accordion-head');
-          if (poAccordion && poAccordion.nextElementSibling.style.display !== 'block') {
-            poAccordion.click();
-          }
-        }, 200);
-      }, 
-      targetElement: '[data-po-id="P1001"]', 
-      position: 'bottom' 
-    },
-    { 
-      userId: 'U006', 
-      companyId: 'C_PRO', 
-      title: '3. Requirement Flow-Down', 
-      content: 'The processor creates new POs for their suppliers (the Coops), making sure to include the "Organic" requirement from the importer\'s original order.', 
-      preAction: () => {
-        ensureModalClosed();
-        navigateToTab('pos');
-        setTimeout(() => {
-            const p1001 = $('[data-po-id="P1001"] .accordion-head');
-            if (p1001 && p1001.nextElementSibling.style.display !== 'block') {
-                p1001.click();
-            }
-            const p2001 = $('[data-po-id="P2001"] .accordion-head');
-            if (p2001 && p2001.nextElementSibling.style.display !== 'block') {
-                p2001.click();
-            }
-        }, 200);
-      }, 
-      targetElement: '[data-po-id="P2001"] .accordion-body', 
-      position: 'right' 
-    },
-    { userId: 'U012', companyId: 'C_COO1', title: '4. Supplier Fulfillment', content: 'The agricultural Coop receives the order. They must meet the specified requirements and provide proof, such as a valid Organic certificate, to proceed.', preAction: () => { ensureModalClosed(); navigateToTab('pos'); }, targetElement: '[data-po-id="P2001"]' },
-    { 
-      userId: 'U021', 
-      companyId: 'C_IMP', 
-      title: '5. Logistics Coordination', 
-      content: 'The Logistics Manager coordinates shipments using an operational interface. They select providers, assign carriers, and track shipments - all integrated with the compliance workflow.', 
-      preAction: () => {
-        ensureModalClosed();
-        navigateToTab('pos');
-        setTimeout(() => {
-          const poAccordion = $('[data-po-id="P1001"] .accordion-head');
-          if (poAccordion && poAccordion.nextElementSibling.style.display !== 'block') {
-            poAccordion.click();
-          }
-        }, 200);
-      }, 
-      targetElement: '[data-po-id="P1001"]',
-      position: 'left'
-    },
-    { 
-      userId: 'U014',
-      companyId: 'C_COO1', 
-      targetElement: '#ledgerBody', 
-      title: '6. Token Economics', 
-      content: 'VeriPura tokens incentivize compliance. This Coop wallet shows VERI earned for organic certifications and spent on services. Tokens create direct economic value for sustainable practices.', 
-      position: 'top', 
-      preAction: () => {
-        ensureModalClosed();
-        const coop1Wallet = walletFor('C_COO1');
-        if (coop1Wallet.ledger.length < 3) {
-          coop1Wallet.ledger.push(
-            {ts: now(), kind: 'Earned', detail: 'Organic compliance reward for PO P2001', amount: 400},
-            {ts: now(), kind: 'Spent', detail: 'QA bundle purchase', amount: -250},
-            {ts: now(), kind: 'Earned', detail: 'Fair Trade certification bonus', amount: 300}
-          );
-          coop1Wallet.balance = 1650;
+  })();
+  </script>
+
+  <script>
+  (function(){
+    'use strict';
+    // This script contains additional UI enhancements and visibility rules.
+    // It is kept separate for organizational purposes.
+
+    document.addEventListener('click', (ev)=>{
+      try{
+        const btn = ev.target.closest('.nav button');
+        if(!btn) return;
+        const id = btn.getAttribute('data-tab') || (btn.textContent||'').trim();
+        if (!id) return;
+
+        const isAllowed = isTabAllowed(id);
+        if (!isAllowed) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          console.warn('[TAB RULES] Blocked access to tab:', id);
+          return false;
         }
-        navigateToTab('wallet');
+      }catch(e){
+        console.error('Tab click guard failed:', e);
       }
-    },
-    { 
-      userId: 'U001', 
-      companyId: 'C_IMP', 
-      title: '7. Completion & Traceability', 
-      content: 'The completed order shows full end-to-end traceability: supply chain flow, specific farm lots, geographic origins, and logistics tracking. This transparency enables rapid recall response and builds consumer trust.', 
-      preAction: () => { 
-        ensureModalClosed();
-        advanceTimeline(14); 
-        navigateToTab('pos');
-        setTimeout(() => {
-          const po = state.pos.find(p => p.id === 'P1001');
-          if (po) {
-            po.status = 'Completed';
-            po.trace = {
-              chain: ['NE Thai Herb Producer', 'Bangkok Chili Co., Ltd.', 'EU Asian Importers'],
-              lots: [
-                {id: 'LOT-CH-001', qty: 400, source: 'NE Thai Herb Producer', farmLocation: 'Udon Thani Province'},
-                {id: 'LOT-SP-002', qty: 50, source: 'Central Thai Organic', farmLocation: 'Ayutthaya Province'}
-              ],
-              geo: 'Udon Thani Province, Thailand → Bangkok Processing → Rotterdam Port → Amsterdam Distribution'
-            };
-            po.shipments = [{
-              id: 'S1', 
-              qty: 1200, 
-              ts: now(),
-              logisticsProvider: 'LOG_TH3',
-              logisticsProviderName: 'Siam Ocean Freight Lines',
-              carrier: 'Container MSKU-789123',
-              tracking: 'TRK-EU-001234'
-            }];
-            setTimeout(() => {
-              const poAccordion = $('[data-po-id="P1001"] .accordion-head');
-              if (poAccordion && poAccordion.nextElementSibling.style.display !== 'block') {
-                poAccordion.click();
-              }
-            }, 300);
+    }, true);
+
+    // Note: Monkey-patching is a risky practice.
+    // This code intercepts attempts to add elements to the DOM to enforce tab visibility rules.
+    // A better approach would be to refactor the rendering logic to check permissions before creating elements.
+    (function(){
+      const _append = Element.prototype.appendChild;
+      const _insertBefore = Element.prototype.insertBefore;
+
+      function shouldBlockNode(node) {
+        try {
+          // Only act if we are inside the main navigation panel
+          if (!node || node.nodeType !== 1 || !node.closest('#nav')) {
+            return false;
           }
-        }, 500);
-      }, 
-      targetElement: '[data-po-id="P1001"]', 
-      position: 'top' 
-    }
-  ];
-
-  function navigateToTab(tabName) {
-    const tabBtn = $(`button[data-tab="${tabName}"]`);
-    if(tabBtn) tabBtn.click();
-  }
-
-  function startTour() {
-    // Always reset to a clean, logged-out state to ensure tour starts correctly.
-    session = { companyId: null, role: null, userId: null };
-    saveSession();
-    state = deepClone(seed); // Full data reset
-    save();
-    renderLogin(); // Render the login screen
-
-    demoState.active = true;
-    demoState.currentStep = 0;
-
-    // Use a short timeout to ensure the DOM is updated before the tour starts.
-    setTimeout(() => {
-      $('#demo-tour-overlay').classList.remove('hidden');
-      $('#demo-tour-overlay').classList.add('visible');
-      showTourStep(0);
-    }, 100);
-  }
-  
-  function showFinishCard() {
-    const modal = $('#modal');
-    modal.innerHTML = `
-      <div style="position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.6); z-index:10002;">
-        <div class="finish-card">
-          <span class="tagline">THE FOOD TRUST REVOLUTION</span>
-          <h1>VeriPura: Breaking the global food paper jam</h1>
-          <p>Transforming global food compliance and trust through AI + Blockchain. A new era for food trade starts now.</p>
-          <div class="finish-brand">VERIPURA</div>
-          <a href="https://www.veripura.com" target="_blank">www.veripura.com</a>
-          <div class="divider"></div>
-          <button id="finishCloseBtn" class="btn btn-primary">Close Demo</button>
-        </div>
-      </div>
-    `;
-    modal.classList.remove('hidden');
-    $('#finishCloseBtn').addEventListener('click', () => {
-      modal.classList.add('hidden');
-      modal.innerHTML = '';
-    });
-  }
-
-  function endTour() {
-    demoState.active = false;
-    $('#demo-tour-overlay').classList.remove('visible');
-    $('#demo-tour-callout').classList.remove('visible');
-    setTimeout(()=>{
-        $('#demo-tour-overlay').classList.add('hidden');
-        $('#demo-tour-callout').classList.add('hidden');
-    }, 300);
-    
-    clearHighlights();
-    showFinishCard();
-  }
-
-  function nextTourStep() {
-    if (demoState.currentStep < tourSteps.length - 1) {
-      demoState.currentStep++;
-      showTourStep(demoState.currentStep);
-    } else {
-      endTour();
-    }
-  }
-
-  function prevTourStep() {
-    if (demoState.currentStep > 0) {
-        const targetStepIndex = demoState.currentStep - 1;
-
-        // Special handling for returning to the login screen
-        if (targetStepIndex === 0 && session.userId) {
-            session = { companyId: null, role: null, userId: null };
-            saveSession();
-            renderLogin();
-            setTimeout(() => {
-                demoState.currentStep = 0;
-                showTourStep(0);
-            }, 100);
-        } else {
-            // Standard previous step logic
-            demoState.currentStep--;
-            showTourStep(demoState.currentStep);
+          const tabId = node.dataset.tab || node.id;
+          if (tabId && tabId !== 'logout') {
+            return !isTabAllowed(tabId);
+          }
+          return false;
+        } catch (e) {
+          return false; // Fail open
         }
-    }
-  }
-
-  async function autoSwitchRole(companyId, userId) {
-    const loadingOverlay = $('#loading-overlay');
-    loadingOverlay.classList.remove('hidden');
-    
-    return new Promise(resolve => {
-        toast(`Switching role...`, 'warn');
-        const user = userById(userId);
-        if (!user || user.companyId !== companyId) {
-          console.error('Tour Error: User/Company mismatch', userId, companyId);
-          toast('Demo Error: Invalid role switch.', 'err');
-          loadingOverlay.classList.add('hidden');
-          endTour();
-          return resolve(false);
-        }
-        session.companyId = user.companyId;
-        session.role = user.role;
-        session.userId = user.id;
-        saveSession();
-        renderApp();
-        setTimeout(() => {
-            loadingOverlay.classList.add('hidden');
-            resolve(true)
-        }, 500); // Simulate network latency for realism
-    });
-  }
-  
-  function clearHighlights() {
-    $$('.demo-highlight').forEach(el => el.classList.remove('demo-highlight'));
-    const callout = $('#demo-tour-callout');
-    if (callout) {
-        callout.classList.remove('visible');
-    }
-  }
-  
-  function highlightElement(selector, calloutText, position = 'bottom', stepIndex, totalSteps) {
-      const target = $(selector);
-      if (!target) {
-          console.error(`Tour Error: Target element "${selector}" not found for step ${stepIndex}.`);
-          toast(`Demo tour element not found. Please reset.`, 'err');
-          return endTour();
       }
-      
-      clearHighlights();
-      target.classList.add('demo-highlight');
-      
-      const callout = $('#demo-tour-callout');
-      callout.innerHTML = `
-        <div class="col" role="dialog" aria-labelledby="tour-title" aria-describedby="tour-content">
-          <div class="row-between">
-            <strong id="tour-title">${tourSteps[stepIndex].title}</strong>
-            <span class="muted small">Step ${stepIndex + 1} of ${totalSteps}</span>
-          </div>
-          <div class="divider"></div>
-          <p id="tour-content" class="small">${calloutText}</p>
-          <div class="row-between" style="margin-top:.5rem;">
-            <button id="tourSkipBtn" class="btn btn-danger small">Skip Tour</button>
-            <div>
-              <button id="tourPrevBtn" class="btn small" ${stepIndex === 0 ? 'disabled' : ''}>Previous</button>
-              <button id="tourNextBtn" class="btn btn-primary small">${stepIndex === totalSteps - 1 ? 'Finish' : 'Next'}</button>
-            </div>
-          </div>
-        </div>
-      `;
-      callout.classList.remove('hidden');
 
-      const setCalloutPosition = () => {
-        const targetRect = target.getBoundingClientRect();
-        const calloutRect = callout.getBoundingClientRect();
-
-        const positions = {
-          top: { top: targetRect.top - calloutRect.height - 10, left: targetRect.left + (targetRect.width - calloutRect.width) / 2 },
-          bottom: { top: targetRect.bottom + 10, left: targetRect.left + (targetRect.width - calloutRect.width) / 2 },
-          left: { top: targetRect.top + (targetRect.height - calloutRect.height) / 2, left: targetRect.left - calloutRect.width - 10 },
-          right: { top: targetRect.top + (targetRect.height - calloutRect.height) / 2, left: targetRect.right + 10 }
-        };
-
-        let finalPos = positions[position];
-        const checkFit = (pos) => pos.top > 5 && pos.left > 5 && (pos.top + calloutRect.height) < window.innerHeight - 5 && (pos.left + calloutRect.width) < window.innerWidth - 5;
-        
-        if (!checkFit(finalPos)) {
-            const fallbackOrder = ['bottom', 'top', 'right', 'left'];
-            let foundFit = false;
-            for (const pos of fallbackOrder) {
-                if (checkFit(positions[pos])) {
-                    finalPos = positions[pos];
-                    foundFit = true;
-                    break;
-                }
-            }
-            if (!foundFit) {
-                finalPos = {
-                    top: Math.min(targetRect.bottom + 10, window.innerHeight - calloutRect.height - 20),
-                    left: Math.max(10, Math.min(targetRect.left, window.innerWidth - calloutRect.width - 10))
-                };
-            }
+      Element.prototype.appendChild = function(newNode){
+        if(shouldBlockNode(newNode)) {
+            console.warn('[Monkey-Patch] Blocked append of disallowed tab:', newNode);
+            return newNode;
         }
-
-        callout.style.top = `${finalPos.top}px`;
-        callout.style.left = `${finalPos.left}px`;
-        callout.classList.add('visible');
+        return _append.call(this, newNode);
       };
 
-      setTimeout(setCalloutPosition, 50);
-
-      $('#tourNextBtn').addEventListener('click', nextTourStep);
-      $('#tourPrevBtn').addEventListener('click', prevTourStep);
-      $('#tourSkipBtn').addEventListener('click', endTour);
-      $('#tourNextBtn').focus();
-  }
-
-  async function showTourStep(index) {
-    const step = tourSteps[index];
-    if (!step) return endTour();
-
-    const show = () => {
-      // Use a timeout to ensure role switches and re-renders have time to settle
-      setTimeout(() => {
-        if (step.preAction) {
-          try {
-            step.preAction();
-          } catch(e) {
-            console.error(`Error in preAction for step ${index}:`, e);
-            toast('A demo action failed.', 'err');
-            return endTour();
-          }
+      Element.prototype.insertBefore = function(newNode, referenceNode){
+        if(shouldBlockNode(newNode)) {
+            console.warn('[Monkey-Patch] Blocked insert of disallowed tab:', newNode);
+            return newNode;
         }
-        
-        // Use a longer timeout here to wait for preAction's own async operations (like tab switching)
-        setTimeout(() => {
-          const targetEl = $(step.targetElement);
-          if (targetEl) {
-              targetEl.scrollIntoView({ 
-                  behavior: 'smooth', 
-                  block: 'start',
-                  inline: 'nearest' 
-              });
-              // Wait for scroll to finish before highlighting
-              setTimeout(() => {
-                  highlightElement(step.targetElement, step.content, step.position, index, tourSteps.length);
-              }, 400); 
-          } else {
-             console.error(`Tour Error: Target element "${step.targetElement}" not found for step ${index}.`);
-             toast(`Demo tour element not found. Please reset.`, 'err');
-             return endTour();
-          }
-        }, 400);
-      }, 100);
+        return _insertBefore.call(this, newNode, referenceNode);
+      };
+    })();
+
+  })();
+  </script>
+
+  <script>
+  // Appearance controls (Theme & Density)
+  (function(){
+    const THEME_KEY='vp_theme', DENSITY_KEY='vp_density';
+    function getTheme(){ return document.documentElement.getAttribute('data-theme') || 'dark'; }
+    function setTheme(t){ document.documentElement.setAttribute('data-theme', t); try{ localStorage.setItem(THEME_KEY,t);}catch(e){} }
+    function getDensity(){ return document.documentElement.getAttribute('data-density') || 'comfort'; }
+    function setDensity(d){ document.documentElement.setAttribute('data-density', d); try{ localStorage.setItem(DENSITY_KEY,d);}catch(e){} }
+
+    function wireLoginAppearance(){
+      const themeSel = document.getElementById('vpThemeSelect');
+      const densSel  = document.getElementById('vpDensitySelect');
+      if(!themeSel || !densSel) return;
+      themeSel.value = getTheme();
+      densSel.value  = getDensity();
+      themeSel.onchange = e=> setTheme(e.target.value);
+      densSel.onchange  = e=> setDensity(e.target.value);
+    }
+    // Expose for manual call after renderLogin if needed
+    window.__wireLoginAppearance = wireLoginAppearance;
+  })();
+  </script>
+
+  <script>
+  // Login Promo Card Logic
+  (function(){
+    'use strict';
+    // Role-aware bullets for the login promo card
+    const PROMO = {
+      importer: [
+        "<strong>$40B</strong> lost annually to food fraud; <strong>600M</strong> people fall ill and <strong>420K</strong> die from unsafe food.",
+        "<strong>30+ documents</strong> per EU shipment — errors cause costly delays and rework.",
+        "<strong>Instant origin proof</strong> and EUDR-ready docs; fewer rejections with AI-checked records.",
+        "<strong>Traceback in ~2 seconds</strong> with on-chain records (vs. 7 days with paper trails)."
+      ],
+      processor: [
+        "Automated document checks with <strong>AI</strong> — fewer resubmits and faster approvals.",
+        "Guided <strong>label/QA</strong> compliance; override actions are audited.",
+        "Single source of truth: specs, COAs, and chain of custody are <strong>tamper-proof</strong> on blockchain.",
+        "Earn <strong>VERI tokens</strong> for timely and verified submissions."
+      ],
+      coop: [
+        "Prove <strong>origin & organic</strong> status easily; attach certs from a phone.",
+        "Transparent chain of custody builds a <strong>trust score</strong> with buyers.",
+        "Get paid sooner: complete docs unlock faster approvals.",
+        "Earn <strong>VERI tokens</strong> for on-time, verified documentation."
+      ]
     };
 
-    if (step.userId && session.userId !== step.userId) {
-        await autoSwitchRole(step.companyId, step.userId);
-        show();
-    } else {
-        show();
+    function roleFromCompanyText(txt){
+      txt = (txt||'').toLowerCase();
+      if (txt.includes('importer')) return 'importer';
+      if (txt.includes('processor')) return 'processor';
+      if (txt.includes('coop') || txt.includes('co-op') || txt.includes('cooperative')) return 'coop';
+      return 'importer'; // default
     }
-  }
-  
-  function renderControlPanel() {
-    const panel = $('#demo-control-panel');
-    panel.innerHTML = `
-      <div class="col">
-        <div class="row-between">
-          <strong style="color:var(--brand)">Demo Controls</strong>
-          <button id="togglePanelBtn" class="btn small" aria-label="Toggle Demo Control Panel">Show</button>
-        </div>
-        <div id="panelContent" class="hidden">
-            <div class="divider"></div>
-            <div class="section-title small">Scenario Quick-Select</div>
-            <div class="grid cols-2">
-              <button class="btn small" data-scenario="import">Import Demand</button>
-              <button class="btn small" data-scenario="compliance">Compliance</button>
-              <button class="btn small" data-scenario="logistics">Logistics</button>
-              <button class="btn small" data-scenario="token">Token Flow</button>
-              <button class="btn small" data-scenario="trace">Traceability</button>
-            </div>
-            <div class="divider"></div>
-            <div class="section-title small">Time Progression</div>
-            <div class="row">
-              <button class="btn small" data-time="1">+1 Day</button>
-              <button class="btn small" data-time="7">+7 Days</button>
-              <button class="btn small" data-time="14">+14 Days</button>
-            </div>
-            <div class="divider"></div>
-            <div class="section-title small">Accessibility</div>
-            <div class="row">
-                <button class="btn small" id="toggleContrastBtn">Contrast</button>
-                <button class="btn small" id="toggleTextSizeBtn">Text Size</button>
-            </div>
-            <div class="divider"></div>
-            <div class="section-title small">Session Management</div>
-            <div class="inline-form">
-                <input id="bookmarkName" class="input small" placeholder="Bookmark Name..." />
-                <button class="btn small" id="saveBookmarkBtn">Save</button>
-            </div>
-            <div class="inline-form" style="margin-top:.5rem">
-                <select id="bookmarkList" class="input small" style="flex-grow:1;"></select>
-                <button class="btn small" id="loadBookmarkBtn">Load</button>
-                <button class="btn btn-warn small" id="deleteBookmarkBtn">Del</button>
-            </div>
-            <button id="exportSummaryBtn" class="btn small" style="width:100%; margin-top: .5rem;">Export Session Summary</button>
-            <div class="divider"></div>
-            <button id="fullResetBtn" class="btn btn-danger small">Full Reset</button>
-        </div>
-      </div>
-    `;
 
-    $('#togglePanelBtn').addEventListener('click', () => {
-      demoState.panelVisible = !demoState.panelVisible;
-      panel.classList.toggle('visible', demoState.panelVisible);
-      $('#panelContent').classList.toggle('hidden', !demoState.panelVisible);
-      $('#togglePanelBtn').textContent = demoState.panelVisible ? 'Hide' : 'Show';
-      if(demoState.panelVisible) populateBookmarks();
-    });
-
-    $('#fullResetBtn').addEventListener('click', () => resetDemoState(false));
-
-    $$('[data-time]').forEach(btn => btn.addEventListener('click', () => {
-      advanceTimeline(parseInt(btn.dataset.time, 10));
-    }));
-    
-    $$('[data-scenario]').forEach(btn => btn.addEventListener('click', async () => {
-        const scenario = btn.dataset.scenario;
-        resetDemoState(true);
-        switch(scenario) {
-            case 'import': startTour(); break;
-            case 'compliance': await autoSwitchRole('C_PRO', 'U007'); navigateToTab('documents'); break;
-            case 'logistics': await autoSwitchRole('C_IMP', 'U021'); navigateToTab('pos'); break;
-            case 'token': await autoSwitchRole('C_IMP', 'U003'); navigateToTab('wallet'); break;
-            case 'trace': await autoSwitchRole('C_IMP', 'U001'); advanceTimeline(30); navigateToTab('pos'); break;
-        }
-        toast(`Loaded "${scenario}" scenario.`);
-    }));
-
-    // Accessibility and Bookmarking Listeners
-    $('#toggleContrastBtn').addEventListener('click', toggleHighContrast);
-    $('#toggleTextSizeBtn').addEventListener('click', toggleLargeText);
-    $('#saveBookmarkBtn').addEventListener('click', saveBookmark);
-    $('#loadBookmarkBtn').addEventListener('click', loadBookmark);
-    $('#deleteBookmarkBtn').addEventListener('click', deleteBookmark);
-    $('#exportSummaryBtn').addEventListener('click', exportSessionSummary);
-  }
-
-  function advanceTimeline(days) {
-    demoState.currentDay += days;
-    toast(`Advanced time by ${days} day(s). Current day: ${demoState.currentDay}`);
-    
-    simulateBusinessActivity(days);
-
-    const activeTab = $('#nav .active')?.dataset.tab || 'dashboard';
-    if(document.body.contains($('#nav'))) { 
-        if (activeTab === 'pos') renderPOs();
-        else if (activeTab === 'documents') renderDocuments();
-        else if (activeTab === 'wallet') renderWallet();
-        else renderDashboard();
+    function renderPromoBullets(role){
+      const ul = document.querySelector('#loginPromo .promo-list');
+      if(!ul) return;
+      const items = PROMO[role] || PROMO.importer;
+      ul.innerHTML = items.map(x=> `<li>${x}</li>`).join('');
     }
-  }
 
-  function simulateBusinessActivity(days) {
-    const previousDay = demoState.currentDay - days;
-    for (let i=1; i<=days; i++) {
-        const day = previousDay + i;
+    window.__wireLoginPromo = function(){
+      const comp = document.getElementById('loginCompany');
+      if (!comp) return;
 
-        state.pos.forEach(po => {
-            if(po.status === 'Open') {
-                if (!po.thread.find(t=>t.msg.includes('reviewing')) && day >= 1) {
-                    po.thread.push({author: `${po.supplierId}:Sales Manager`, msg: `Received. We are reviewing the requirements.`, ts: now()});
-                }
-                if (day >= 1 && po.labelStatus === 'Requested') {
-                  po.labelStatus = 'Pending Review';
-                  po.thread.push({author: `${po.buyerId}:QA Manager`, msg: 'Label submitted for regulatory review.', ts: now()});
-                }
-                if (day >= 3) {
-                    const organicCert = state.certs.find(c => c.companyId === po.supplierId && c.type === 'Organic');
-                    if (po.rewards?.organic && (!organicCert || getDocumentStatus(organicCert) === 'Expired')) {
-                       po.thread.push({author: `${po.buyerId}:Procurement Manager`, msg: `Cannot approve. Organic cert is missing or expired.`, ts: now()});
-                    } else {
-                        po.status = 'Approved';
-                        po.thread.push({author: 'System', msg: 'PO Approved after review.', ts: now()});
-                    }
-                }
-            }
-            if(po.status === 'Approved' && day >= 7) {
-              po.status = 'ReadyToShip';
-              po.thread.push({author: `${po.supplierId}:Production Manager`, msg: 'Production complete. Goods are staged for shipment.', ts: now()});
-            }
-            if(po.status === 'ReadyToShip' && day >= 7) {
-              po.status = 'Shipped';
-              const logisticsProvider = getAvailableLogisticsProviders(po.supplierId)[0];
-              const shipment = {
-                  id: 'S'+(po.shipments.length+1), 
-                  qty: po.items.reduce((a,it)=>a+Number(it.qty||0),0), 
-                  ts: now(),
-                  logisticsProvider: logisticsProvider?.id,
-                  logisticsProviderName: logisticsProvider?.name,
-                  carrier: 'Truck #'+Math.floor(Math.random()*9000+1000),
-                  tracking: 'TRK'+shortId('')
-              };
-              po.shipments.push(shipment);
-              po.thread.push({author: `${po.supplierId}:Logistics Coordinator`, msg: `Shipment created via ${shipment.logisticsProviderName}. Tracking: ${shipment.tracking}`, ts: now()});
-            }
-            if(po.status === 'Shipped' && day >= 14) {
-              po.status = 'Completed';
-              po.thread.push({author: `${po.buyerId}:Logistics Manager`, msg: 'Goods received and verified. Completing order.', ts: now()});
-              if (po.rewards?.organic) {
-                const w = walletFor(po.supplierId);
-                const r = po.rewards.organic;
-                w.balance += r;
-                w.ledger.push({ts:now(), kind:'Earned', detail:`Organic compliance reward for PO ${po.id}`, amount:r});
-                addAuditLog('token_transfer', { from: 'VeriPura', to: po.supplierId, amount: r, reason: `PO ${po.id} Organic Compliance`});
-              }
-            }
-        });
-        state.companyDocuments.forEach(doc => {
-            if (doc.expiresAt) {
-                const startTime = state.startTime ? new Date(state.startTime).getTime() : Date.now();
-                const elapsedMillis = day * 86400000;
-                const docExpiresTime = new Date(doc.expiresAt).getTime();
-                const daysLeft = (docExpiresTime - (startTime + elapsedMillis)) / 86400000;
-                
-                const currentStatus = getDocumentStatus(doc);
-                let newStatus = currentStatus;
-                if (daysLeft <= 0) newStatus = 'Expired';
-                else if (daysLeft <= 30) newStatus = 'Expiring Soon';
-                else newStatus = 'Valid';
+      const selTxt = comp.options[comp.selectedIndex] ? comp.options[comp.selectedIndex].textContent : '';
+      renderPromoBullets(roleFromCompanyText(selTxt));
 
-                if(currentStatus !== newStatus) doc.status = newStatus;
-            }
-        });
-    }
-  }
-  
-  function resetDemoState(soft=false){
-      const currentSession = deepClone(session);
-      localStorage.removeItem('vp');
-      state = deepClone(seed);
-      demoState.currentDay = 0;
-      state.startTime = new Date().toISOString();
-      save();
-      if(!soft){
-          localStorage.removeItem('vp_session');
-          location.reload();
-      } else {
-         session = currentSession;
-         saveSession();
-      }
-  }
-
-  // ---------- Accessibility & Persistence Functions ----------
-  function applyAccessibilitySettings() {
-      if (localStorage.getItem('vp_high_contrast') === 'true') {
-          document.body.classList.add('high-contrast');
-      }
-      if (localStorage.getItem('vp_large_text') === 'true') {
-          document.body.classList.add('large-text');
-      }
-  }
-  function toggleHighContrast() {
-      const isEnabled = document.body.classList.toggle('high-contrast');
-      localStorage.setItem('vp_high_contrast', isEnabled);
-      toast(`High contrast ${isEnabled ? 'enabled' : 'disabled'}.`);
-  }
-  function toggleLargeText() {
-      const isEnabled = document.body.classList.toggle('large-text');
-      localStorage.setItem('vp_large_text', isEnabled);
-      toast(`Large text ${isEnabled ? 'enabled' : 'disabled'}.`);
-  }
-  function getBookmarks() {
-      return Object.keys(localStorage)
-          .filter(key => key.startsWith('vp_bookmark_'))
-          .map(key => key.replace('vp_bookmark_', ''));
-  }
-  function populateBookmarks() {
-      const select = $('#bookmarkList');
-      if (!select) return;
-      const bookmarks = getBookmarks();
-      select.innerHTML = bookmarks.length > 0
-        ? bookmarks.map(b => `<option value="${b}">${b}</option>`).join('')
-        : `<option disabled>No bookmarks</option>`;
-  }
-  function saveBookmark() {
-      const nameInput = $('#bookmarkName');
-      const name = nameInput.value.trim();
-      if (!name) return toast('Please enter a bookmark name.', 'warn');
-      const bookmarkData = { state: state, session: session, demoState: demoState };
-      localStorage.setItem(`vp_bookmark_${name}`, JSON.stringify(bookmarkData));
-      toast(`Bookmark "${name}" saved.`);
-      nameInput.value = '';
-      populateBookmarks();
-  }
-  function loadBookmark() {
-      const select = $('#bookmarkList');
-      const name = select.value;
-      if (!name) return toast('No bookmark selected.', 'warn');
-      const rawData = localStorage.getItem(`vp_bookmark_${name}`);
-      if (!rawData) return toast('Bookmark not found.', 'err');
-      try {
-          const data = JSON.parse(rawData);
-          state = data.state;
-          session = data.session;
-          demoState = data.demoState || demoState;
-          save();
-          saveSession();
-          toast(`Bookmark "${name}" loaded.`);
-          location.reload();
-      } catch (e) {
-          toast('Failed to load bookmark.', 'err');
-          console.error('Bookmark load error:', e);
-      }
-  }
-  function deleteBookmark() {
-      const select = $('#bookmarkList');
-      const name = select.value;
-      if (!name) return toast('No bookmark selected.', 'warn');
-      localStorage.removeItem(`vp_bookmark_${name}`);
-      toast(`Bookmark "${name}" deleted.`);
-      populateBookmarks();
-  }
-  function exportSessionSummary() {
-      let summary = `VeriPura Demo Summary - ${new Date().toLocaleString()}\n`;
-      summary += `==================================================\n\n`;
-      summary += `Demo Day: ${demoState.currentDay}\n\n`;
-      summary += `COMPANIES & WALLETS:\n`;
-      state.companies.forEach(c => {
-          summary += `- ${c.name} (${c.type}): ${getBalance(c.id)} VERI\n`;
+      comp.addEventListener('change', function(){
+        const t = comp.options[comp.selectedIndex].textContent;
+        renderPromoBullets(roleFromCompanyText(t));
       });
-      summary += `\nPURCHASE ORDERS (${state.pos.length}):\n`;
-      state.pos.forEach(po => {
-          summary += `- PO ${po.id} (${companyById(po.buyerId).name} -> ${companyById(po.supplierId).name}): ${po.status}\n`;
-      });
-      summary += `\nPARTNERSHIPS (${state.partners.length}):\n`;
-      state.partners.forEach(p => {
-          summary += `- ${companyById(p.aId).name} <-> ${companyById(p.bId).name}: ${p.status}\n`;
-      });
-      
-      const blob = new Blob([summary], { type: 'text/plain;charset=utf-8;' });
-      const link = document.createElement("a");
-      const url = URL.createObjectURL(blob);
-      link.setAttribute("href", url);
-      link.setAttribute("download", `veripura_summary_${Date.now()}.txt`);
-      link.style.visibility = 'hidden';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      toast('Session summary exported.');
-  }
-  
-  document.addEventListener('keydown', (e) => {
-    if (e.ctrlKey && e.key.toLowerCase() === 'd') {
-      e.preventDefault();
-      $('#togglePanelBtn')?.click();
-    }
-    
-    if (demoState.active) {
-        if(e.key === 'ArrowRight') { e.preventDefault(); $('#tourNextBtn')?.click(); }
-        if(e.key === 'ArrowLeft') { e.preventDefault(); $('#tourPrevBtn')?.click(); }
-        if(e.key === 'Escape') { e.preventDefault(); $('#tourSkipBtn')?.click(); }
-    } else if (demoState.panelVisible) {
-        if(e.code === 'Space') {
-            e.preventDefault();
-            const dayBtn = $('[data-time="1"]');
-            if (dayBtn) dayBtn.click();
-        }
-    }
-  });
-
-
-  // Initial Setup
-  applyAccessibilitySettings();
-  loadSession();
-  if(session.companyId && session.userId && session.role) {
-      renderApp();
-  } else {
-      renderLogin();
-  }
-
-})();
-</script>
-
-
-<script>
-(function(){
-  function applyThemeInstant(th){
-    try{
-      if(th===''){th='dark';}
-      document.documentElement.setAttribute('data-theme', th);
-      document.body && document.body.setAttribute('data-theme', th);
-      localStorage.setItem('vp_theme', th);
-    }catch(e){}
-  }
-  document.addEventListener('DOMContentLoaded', function(){
-    var sel = document.getElementById('themeSelect');
-    if(sel){
-      var current = (function(){var t=localStorage.getItem('vp_theme'); if(t===''){localStorage.setItem('vp_theme','dark'); t='dark';} return t || 'dark';})();
-      sel.value = current;
-      applyThemeInstant(current); // ensure applied immediately
-      sel.addEventListener('change', function(){ applyThemeInstant(this.value); });
-    }
-  });
-})();
-</script>
-
-
-
-<script id="vp-ensure-login">
-document.addEventListener('DOMContentLoaded', function(){
-  try{
-    if (typeof renderLogin === 'function') renderLogin();
-  }catch(e){}
-});
-</script>
-
-
-<script id="vp-tour-hardening">
-(function(){
-  function guard(fnName){
-    var fn = window[fnName];
-    if (typeof fn !== 'function') return;
-    window[fnName] = function(){
-      try { return fn.apply(this, arguments); }
-      catch(e){ console.error(fnName+' error:', e); }
     };
-  }
-  guard('startDemoTour');
-  guard('nextTourStep');
-  guard('prevTourStep');
-  document.addEventListener('DOMContentLoaded', function(){
-    setTimeout(function(){
-      var overlay = document.getElementById('demo-tour-overlay');
-      if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.id = 'demo-tour-overlay';
-        overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.25);pointer-events:none;z-index:1000';
-        document.body.appendChild(overlay);
-      }
-    }, 50);
-  });
-})();
-</script>
-
+  })();
+  </script>
 </body>
 </html>
